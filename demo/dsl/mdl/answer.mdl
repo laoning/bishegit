@@ -1,0 +1,94 @@
+%-+Paper Template+-%
+\documentclass[a4paper]{article}
+\usepackage[winfonts]{ctex}
+\renewcommand{\baselinestretch}{1.5}
+\topmargin -12mm \oddsidemargin 0mm \evensidemargin 0mm \textwidth 163mm \textheight 225mm
+\addtolength{\headsep}{20mm}
+\flushbottom
+%\usepackage{ulem}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{picins}
+\usepackage{fancyvrb}
+\usepackage{fancyhdr}
+\usepackage{afterpage}
+\usepackage{lastpage}
+\usepackage{listings}
+\usepackage{indentfirst}
+%\usepackage{ifpdf}
+
+\begin{document}
+
+\newcounter{mynum}
+\newcounter{subnum}[mynum]
+\newcounter{subsubnum}[subnum]
+\newcounter{looptimes}
+\newcommand{\dati}{\stepcounter{mynum}\chinese{mynum}、\ }
+\newcommand{\xiaoti}{\stepcounter{subnum}\arabic{subnum}.\ }
+\newcommand{\xiaoxiaoti}{\stepcounter{subsubnum}\raisebox{1pt}{\textcircled{\footnotesize\arabic{subsubnum}}\ }}
+\newcommand{\note}[1]{{\heiti 说明：}{\kaishu #1}}
+
+\newcommand{\dumpwords}[2]{\setcounter{looptimes}{1}%
+\loop#2\hspace{0.05pt plus0.02pt minus0.1pt}\ifnum\thelooptimes<#1\addtocounter{looptimes}{1}\repeat}
+\newcommand{\hblnk}[1]{\,\dumpwords{#1}{\rule{1em}{0.4pt}}\,}
+\newcommand{\vblnk}[1]{\vspace*{#1ex plus2ex minus0.2ex}}
+\newcommand{\pnt}[1]{（\,#1\,分）}
+
+%-------版面的线框用页眉元素表现--------
+%---第一页与众不同---
+\newsavebox{\firstpgframe}
+\sbox{\firstpgframe}{%
+	\includegraphics{eps/ans_blank_p1.eps}}
+
+%\thispagestyle{fancy}
+\pagestyle{fancy}
+%\fancyhead{}
+\fancyhf{}%
+\fancyhead[C]{\setlength{\unitlength}{1mm}
+              \begin{picture}(-15,0)
+              \put(-108,-274){\usebox{\firstpgframe}}
+              \put(-28.5,-42.6){\makebox(0,0){\large{}@@year1@@}}
+              \put(-12.2,-42.6){\makebox(0,0){\large{}@@year2@@}}
+              \put(14.7,-42.6){\makebox(0,0){\large{}@@semester@@}}
+              \put(-30.5,-53){\makebox(0,0){\large{}@@owner@@}}
+              \put(49.1,-53){\makebox(0,0){\large{}@@subject@@}}
+              \put(-30.5,-67){\makebox(0,0){\large{}@@classname@@}}
+              \put(36.9,-67.1){\makebox(0,0){\large{}@@author@@}}
+              \put(49.7,-67.1){\makebox(0,0){\large{}@@makeyear@@}}
+              \put(57.9,-67.1){\makebox(0,0){\large{}@@makemonth@@}}
+              \put(65.5,-67.1){\makebox(0,0){\large{}@@makeday@@}}
+              \put(50.3,-34.5){\makebox(0,0){\pageref{LastPage}}}
+              \put(64,-34.5){\makebox(0,0){\thepage}}
+              \put(30,-34){\makebox(0,0){\LARGE{}\uppercase{@@abpaper@@}}}
+              %\put(0,0){\circle*{2}}
+              \end{picture}}
+\renewcommand{\headrulewidth}{0pt}
+
+\newsavebox{\otherpgframe}
+\sbox{\otherpgframe}{%
+	\includegraphics{eps/ans_blank_p2.eps}}
+
+
+
+%----后继的其他页面使用另外一种版面装饰----
+\afterpage{%
+\fancyhf{}%
+\fancyhead[C]{\setlength{\unitlength}{1mm}
+              \begin{picture}(-15,0)
+              \put(-108,-274){\usebox{\otherpgframe}}
+              \put(50,-18){\makebox(0,0){\pageref{LastPage}}}
+              \put(63.8,-18){\makebox(0,0){\thepage}}
+              %\put(0,0){\circle*{2}}
+              \end{picture}}
+}
+
+%%%%%%%% 文档开始 %%%%%%%%%
+\vspace*{40mm}
+\large
+
+% 在下面输入试卷内容
+% ==================
+\input{answer.@@abpaper@@.inc}
+%%%%%%%% 结束试卷内容 %%%%%%%%%
+
+\end{document}

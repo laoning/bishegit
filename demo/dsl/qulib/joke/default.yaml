@@ -1,0 +1,48 @@
+11:
+  qu: |
+    假设目录结构如下图所示。
+    你当前的工作目录是~memos。请在下面的表格中写出所给文件的绝对路径名和相对路径名。
+    （提示：“文件路径名”的末尾包含文件名）
+    \pnt{10}
+
+    \begin{center}
+    \includegraphics[height=6cm,keepaspectratio]{res/dirtree-a-2}
+    \end{center}
+
+    \begin{center}
+    \begin{tabular}{lll}
+    文件 & \hspace{2cm}绝对路径名 & \hspace{3cm}相对路径名\hspace{2cm} \\ \hline
+    stone \\ \hline
+    sea \\ \hline
+    moon \\ \hline
+    yellow \\ \hline
+    larry \\ \hline
+    \end{tabular}
+    \end{center}
+  an: |
+    答案见下表。每正确答对一个路径名，得1分。
+    \begin{center}
+    \begin{tabular}{lll}
+    文件 & \hspace{2cm}绝对路径名 \hspace{3cm} & 相对路径名\hspace{2cm} \\ \hline
+    stone & /home/dav/memos/stone & stone \\ \hline
+    sea & /home/dav/memos/ji/sea & ji/sea \\ \hline
+    moon & /home/dav/reports/na/moon & ../reports/na/moon \\ \hline
+    yellow  & /home/dav/reports/na/yellow & ../reports/na/yellow \\ \hline
+    larry & /home/dav/letters/larry & ../letters/larry \\ \hline
+    \end{tabular}
+    \end{center}
+12:
+  qu: |
+    题目这里是题目这里是题目这里是题目这里是题目这，
+    里是题目这里是题目这里是题目这里是题目这里是题，
+    目这里是题目这里是题目这里是题目这里是题目这里，
+    是题目这里是题目这里是题目这里是题目这里是题目，
+    这里是题目这里是题目。
+    \pnt{10}
+    \vblnk{20}
+  an: |
+    答案，这里是答案\pnt{2}。另一段等等\pnt{4}。
+    答案，这里是答案\pnt{2}。另一段等等\pnt{4}。
+    答案，这里是答案\pnt{2}。另一段等等\pnt{4}。
+    答案，这里是答案\pnt{2}。另一段等等\pnt{4}。
+

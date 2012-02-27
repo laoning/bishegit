@@ -1,0 +1,195 @@
+%-+Paper Template+-%
+\documentclass[a4paper]{article}
+\usepackage[winfonts]{ctex}
+%\documentclass[a4paper]{scrartcl}
+\renewcommand{\baselinestretch}{1.40}
+\topmargin -40mm \oddsidemargin 0mm \evensidemargin 0mm \textwidth 165mm \textheight 297mm
+\addtolength{\headsep}{23mm}
+\addtolength{\textheight}{-47mm}
+%\flushbottom
+%\usepackage{ulem}
+\usepackage{graphicx}
+\usepackage{amsmath}
+% \usepackage{ifthen}
+\usepackage{pifont}
+\usepackage{multicol}
+\usepackage{picins}
+\usepackage{fancyvrb}
+\usepackage{fancyhdr}
+\usepackage{afterpage}
+\usepackage{lastpage}
+\usepackage{listings}
+\usepackage{indentfirst}
+% \usepackage{ifpdf}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usetikzlibrary{trees}
+\usetikzlibrary{matrix}
+\usetikzlibrary{arrows}
+
+\begin{document}
+
+\newcounter{mynum}
+\newcounter{subnum}[mynum]
+\newcounter{subsubnum}[subnum]
+\newcounter{looptimes}
+
+% 表格中使用的序号
+\newcounter{Rownumber}
+\newcommand{\Rown}{\stepcounter{Rownumber}\theRownumber}
+\newcommand{\Rowl}{\alph{Rownumber}}
+
+%================================
+% 带圈的数字
+\newcommand{\CircledNumx}[1]{%
+\ifthenelse{#1=1}{%if
+\Large\raisebox{-1pt}{\ding{172}}}
+{%else
+\ifthenelse{#1=2}{%if
+\Large\raisebox{-1pt}{\ding{173}}}
+{%else
+\ifthenelse{#1=3}{%if
+\Large\raisebox{-1pt}{\ding{174}}}
+{%else
+\ifthenelse{#1=4}{%if
+\Large\raisebox{-1pt}{\ding{175}}}
+{%else
+\ifthenelse{#1=5}{%if
+\Large\raisebox{-1pt}{\ding{176}}}
+{%else
+\ifthenelse{#1=6}{%if
+\Large\raisebox{-1pt}{\ding{177}}}
+{%else
+\ifthenelse{#1=7}{%if
+\Large\raisebox{-1pt}{\ding{178}}}
+{%else
+\ifthenelse{#1=8}{%if
+\Large\raisebox{-1pt}{\ding{179}}}
+{%else
+\ifthenelse{#1=9}{%if
+\Large\raisebox{-1pt}{\ding{180}}}
+{%else
+\ifthenelse{#1=10}{%if
+\Large\raisebox{-1pt}{\ding{181}}}
+{%else doing nothing.
+}}}}}}}}}}\large}
+
+%====================================
+%
+% 使用很简单，例如
+%
+%==================================
+%
+%\CircledNumx{1}\ \CircledNumx{2}\ \CircledNumx{3}
+%
+%===================================
+%
+%另外，通过运行下列代码，你还能够看到许多＂\ding＂　的字符（包括别的带圈的数字）：
+%
+%==============================
+
+%\newcounter{cc}
+%\setcounter{cc}{0}
+%\whiledo{\value{cc}<256}{
+%\Large\ding{\value{cc}}
+%\stepcounter{cc}}
+
+%==============================
+
+\newcommand{\putbox}{%
+\parpic[r]{\includegraphics{eps/marksbox.eps}}}
+
+\newcommand{\dati}{\putbox\stepcounter{mynum}\chinese{mynum}.\ }
+\newcommand{\xiaoti}{\stepcounter{subnum}\arabic{subnum}.\ }
+%\newcommand{\xiaoxiaoti}{\stepcounter{subsubnum}\CircledNumx{\arabic{subsubnum}}\ }
+\newcommand{\xiaoxiaoti}{\stepcounter{subsubnum}\raisebox{1pt}{\textcircled{\footnotesize\arabic{subsubnum}}\ }}
+
+\newcommand{\dumpwords}[2]{\setcounter{looptimes}{1}%
+\loop#2\hspace{0.05pt plus0.02pt minus0.1pt}\ifnum\thelooptimes<#1\addtocounter{looptimes}{1}\repeat}
+\newcommand{\hblnk}[1]{\,\dumpwords{#1}{\rule{1em}{0.4pt}}\,}
+%\newcommand{\vblnk}[1]{\vspace*{#1ex plus0.2ex minus0.2ex}}
+\newcommand{\vblnk}[1]{\ \\\rule{0em}{#1ex}}
+\newcommand{\pnt}[1]{（\,#1\,分）}
+\newcommand\slc[4]{%
+\begin{multicols}{2}
+A. #1
+
+B. #2
+
+C. #3
+
+D. #4
+\end{multicols}
+}
+
+\newcommand\vslc[4]{%
+A. #1
+
+B. #2
+
+C. #3
+
+D. #4
+}
+
+
+%-------版面的线框用页眉元素表现--------
+%---第一页与众不同---
+\newsavebox{\firstpgframe}
+\sbox{\firstpgframe}{%
+	\includegraphics{eps/ppr_blank_p1.eps}}
+
+%\thispagestyle{fancy}
+\pagestyle{fancy}
+%\fancyhead{}
+\fancyhf{}%
+\fancyhead[C]{\setlength{\unitlength}{1mm}
+              \begin{picture}(10,0)
+              \put(-103,-298.6){\usebox{\firstpgframe}}
+              \put(-21.9,-49.5){\makebox(0,0){\large{}@@year1@@}}
+              \put(-9.7,-49.5){\makebox(0,0){\large{}@@year2@@}}
+              \put(18,-49.5){\makebox(0,0){\large{}@@semester@@}}
+              \put(-33,-60.4){\makebox(0,0){\large{}@@depname@@}}
+              \put(29,-71){\makebox(0,0){\large{}@@classname@@}}
+              \put(49,-60.4){\makebox(0,0){\large{}@@subject@@}}
+              \put(-50,-71){\makebox(0,0){\large{}@@openclose@@}}
+              \put(-50,-82.3){\makebox(0,0){\large{}@@author@@}}
+              \put(58,-48.5){\makebox(0,0){\pageref{LastPage}}}
+              \put(73.5,-48.5){\makebox(0,0){\thepage}}
+              \put(55,-33){\makebox(0,0){\LARGE{}\uppercase{@@abpaper@@}}}
+%              \put(55,-33){\circle*{20}}
+              \end{picture}}
+\renewcommand{\headrulewidth}{0pt}
+
+\newsavebox{\otherpgframe}
+\sbox{\otherpgframe}{%
+	\includegraphics{eps/ppr_blank_p2.eps}}
+
+%----后继的其他页面使用另外一种版面装饰----
+\afterpage{%
+\fancyhf{}%
+\fancyhead[C]{\setlength{\unitlength}{1mm}
+              \begin{picture}(10,0)
+              \put(-101,-295.6){\usebox{\otherpgframe}}
+              \put(41.9,-23.8){\makebox(0,0){\pageref{LastPage}}}
+              \put(60.9,-23.8){\makebox(0,0){\thepage}}
+              \end{picture}}
+}
+
+%%%%%%%% 文档开始 %%%%%%%%%
+\vspace*{80mm}
+\large
+%\newenvironment{mytext}
+%{\begin{list}{}{%
+%	\setlength{\leftmargin}{28mm}
+%	\setlength{\rightmargin}{18mm}
+%	}\item[]}{\end{list}}
+
+%\begin{mytext}
+% 在下面输入试卷内容
+% ==================
+\input{paper.@@abpaper@@.inc}
+%%%%%%%% 结束试卷内容 %%%%%%%%%
+%\end{mytext}
+
+\end{document}
