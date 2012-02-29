@@ -1,0 +1,12 @@
+set nowrap
+set ai
+set sw=4
+set aw
+"set sua=.tex
+set tabstop=4
+set expandtab
+set bs=indent,eol,start
+map <F12> :make -B
+imap <F12> :make -B
+map <S-F12> :shell 
+imap <S-F12> :shell 
