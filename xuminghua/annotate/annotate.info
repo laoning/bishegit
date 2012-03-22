@@ -1,7 +1,7 @@
 name=Annotate
 descripition="Allows users to annotate nodes."
 
-package=Pro Drupal Development
+package=custom
 
 core=7.x
 
