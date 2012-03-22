@@ -1,0 +1,25 @@
+<?php
+	function beep_beep(){
+		watchdog('beep','Beep!');
+	}
+	function beep_beep_action(){
+		beep_beep();
+	}
+	//function beep_user(&$edit,$account){
+	//	beep_beep();
+	//}
+	//function beep_node_insert($node){
+	//	beep_beep();
+	//}
+	function beep_action_info(){
+		return array(
+			'beep_beep_action'=>array(
+				'type'=>'system',
+				'label'=>t('Beep annoyingly'),
+				'configurable'=>FALSE,
+				'trigggers'=>array('node_view','node_insert','node_update','node_delete'),),
+		);
+	}
+?>
+	
+

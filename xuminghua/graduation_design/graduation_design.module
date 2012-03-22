@@ -1,0 +1,56 @@
+<?php
+	/**
+	*@file
+	*学生个人页面
+	*/
+	
+	/**
+	*实现hook_menu()
+	*/
+	function graduation_design_menu(){
+		$items['graduation_design']=array(
+			'title'=>'我的主页',
+			'page callback'=>'graduation_design_home_page',
+			'access callback'=>'graduation_design_access_callback',
+			'file'=>'graduation_design.pages.inc',
+			'menu_name'=>'main-menu',
+		);
+		$items['graduation_design/home']=array(
+			'title'=>'我的主页',
+			'page callback'=>'graduation_design_home_page',
+			'access callback'=>'graduation_design_access_callback',
+			'file'=>'graduation_design.pages.inc',
+			'type'=>MENU_DEFAULT_LOCAL_TASK,
+			'weight'=>1,
+		);
+		$items['graduation_design/graduation']=array(
+			'title'=>'我的毕设',
+			'page callback'=>'graduation_design_graduation_page',
+			'access callback'=>'graduation_design_access_callback',
+			'file'=>'graduation_design.pages.inc',
+			'type'=>MENU_LOCAL_TASK,
+			'weight'=>2,
+		);
+		$items['graduation_design/message']=array(
+			'title'=>'我的留言板',
+			'page callback'=>'graduation_design_message_page',
+			'access callback'=>'graduation_design_access_callback',
+			'file'=>'graduation_design.pages.inc',
+			'type'=>MENU_LOCAL_TASK,
+			'weight'=>3,
+		);
+		return $items;
+	}
+
+	/**
+	*页面回调
+	*/
+	function graduation_design_access_callback(){
+		global $user;
+		$flag=FALSE;
+		if($user->uid>0){
+			$flag=TRUE;
+		}
+		return $flag;
+	}
+

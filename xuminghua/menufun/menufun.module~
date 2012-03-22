@@ -1,0 +1,16 @@
+<?php
+	function menufun_menu(){
+		$items['menufun']=array(
+			'title'=>'Menufun',
+			'page callback'=>'menufun_greeting',
+			'file'=>'menufun_greeting.inc',
+			'page arguments'=>array('Jane','xum'),
+			'access callback'=>TRUE,
+			'type'=>MENU_NORMAL_ITEM,
+		);
+		return $items;
+	}
+	function menufun_hello($first_name='',$last_name=''){
+		return t('Hello! @first_name @last_name',
+			array('@first_name'=>$first_name,'@last_name'=>$last_name));
+	}

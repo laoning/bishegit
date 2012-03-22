@@ -1,0 +1,41 @@
+<?php
+	function menu_abc_permission(){
+		$perms=array(
+			'access abc'=>array(
+				'title'=>t('访问菜单ABC示例页面'),
+			),
+		);
+		return $perms;
+	}
+
+	
+	function menu_abc_menu(){
+		$items['menu_abc']=array(
+			'title'=>'菜单ABC',
+			'title callback'=>'menu_abc_my_title',
+			'description'=>'一个简单的菜单项',
+			'page callback'=>'menu_abc_callback_page',
+			'access callback'=>'user_access',
+			'access arguments'=>array('access abc'),
+			//'type'=>MENU_CALLBACK,
+			'file'=>'menu_abc.pages.inc',
+			'menu_name'=>'main-menu',
+		);
+		$items['menu_abc/sub']=array(
+			'title'=>'菜单ABC子项',
+			'description'=>'菜单ABC的子项',
+			'page callback'=>'menu_abc_sub_callback_page',
+			'file'=>'menu_abc.pages.inc',
+			'access callback'=>TRUE,
+			'menu_name'=>'main-menu',
+		);
+		return $items;
+	}
+
+	function menu_abc_my_title(){
+		global $user;
+		//drupal_set_title(t('菜单ABC标题'));
+		$title=$user->name.t('的主页');
+		return $title;
+	}
+	
