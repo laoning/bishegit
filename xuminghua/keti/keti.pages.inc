@@ -1,0 +1,55 @@
+<?php
+	function keti_callback_page(){
+		$render_array=array(
+			'#markup'=>'',
+		);
+		$render_array['#markup'].=drupal_render(@ drupal_get_form('keti_form'));
+		return $render_array;
+	}
+
+
+	
+	/**
+	 *选题表
+	*/
+	function keti_form(){
+		drupal_add_css(drupal_get_path('module','keti').'/keti.css');
+		$form['biaoti']=array('#markup'=>'<p>'.t('  课题名称                  指导教师').'</p>');
+		$result=db_query("SELECT title, uid FROM {node} WHERE type=:type",array(':type'=>'fbkt',));
+
+		$number=$result->rowCount();
+		
+		for($i=0;$i<$number;$i++){
+			
+		$form['ktmc'][$i]=array(
+			'#type'=>'checkbox',
+			'#title'=>$result->fetchField($column_index),
+		);
+		}
+		/**		
+		foreach ($result as $key=>$record){
+		
+		$form['ktmc'][$key]=array(
+			'#type'=>'checkbox',
+			'#title'=>$record['uid'],
+						
+			'#options'=>array(
+				foreach ($result as $record){
+					$record=$result->fetchAssoc();
+					t('$record');
+				}
+			),
+		);
+		}*/
+		return $form;
+	}
+	/**
+	 *确认选题
+	*/
+	function keti_confirm_callback_page(){
+		drupal_add_css(drupal_get_path('module','keti').'/keti.css');
+		$form['biaoti']=array('#markup'=>'<p>'.t('  课题名称                  指导教师').'</p>');
+		return $form;
+	}
+
+	
