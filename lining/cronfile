@@ -11,5 +11,5 @@ SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 # m h dom mon dow user	command
-1 * * * * laoning shell1 /home/laoning/proj1
+1 * * * * laoning shell1 /home/laoning/proj1/gp2012/lining
 #
