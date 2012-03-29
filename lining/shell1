@@ -1,0 +1,4 @@
+#!/bin/sh
+ls -a > file
+cp file file1
+crontab cronfile
