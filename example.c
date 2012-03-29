@@ -2,5 +2,5 @@
 main()
 {printf("**********nice to meet you********");
 printf("hello,world!");
-printf("**********I'm gongquanfeng********")
+printf("**********I'm gqf********")
 }
