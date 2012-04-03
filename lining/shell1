@@ -1,4 +1,4 @@
 #!/bin/sh
-ls -a > file
-cp file file1
-crontab cronfile
+/bin/ls -a > /laoning/file
+/bin/cp /home/laoning/file /laoning/file1
+# crontab cronfile
