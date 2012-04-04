@@ -1,4 +1,5 @@
 #!/bin/sh
-ls -a > file
-cp file file1
-crontab cronfile
+/bin/ls -a > /home/laoning/proj1/gp2012/lining/file
+/bin/cp /home/laoning/proj1/gp2012/lining/file /home/laoning/proj1/gp2012/lining/file1
+
+
