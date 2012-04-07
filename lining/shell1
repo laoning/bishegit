@@ -1,5 +1,13 @@
 #!/bin/sh
-/bin/ls -a > /home/laoning/proj1/gp2012/lining/file
-/bin/cp /home/laoning/proj1/gp2012/lining/file /home/laoning/proj1/gp2012/lining/file1
+
+ /bin/ls -a > /home/laoning/proj1/gp2012/lining/file
+ /bin/cp /home/laoning/proj1/gp2012/lining/file /home/laoning/proj1/gp2012/lining/file1
+
+/bin/cd /home/laoning//proj1/gp2012
+/bin/git init
+/bin/git add lining
+/bin/git commit -m "my folder"
 
 
+#echo hello >> /home/laoning/proj1/gp2012/lining/file-tmp
+#echo `date` >> /home/laoning/proj1/gp2012/lining/file-tmp
