@@ -4,9 +4,10 @@
  /bin/cp /home/laoning/proj1/gp2012/lining/file /home/laoning/proj1/gp2012/lining/file1
 
 /bin/cd /home/laoning//proj1/gp2012
-/bin/git init
-/bin/git add lining
-/bin/git commit -m "my folder"
+git init
+git add lining
+git commit -m "my folder"
+git push
 
 
 #echo hello >> /home/laoning/proj1/gp2012/lining/file-tmp
