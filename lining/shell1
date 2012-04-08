@@ -5,11 +5,12 @@
  #/bin/cp /home/laoning/proj1/gp2012/lining/file /home/laoning/proj1/gp2012/lining/file1
 
 
+
 git init /home/laoning/proj1/gp2012
 git add /home/laoning/proj1/gp2012/lining 
-git commit -m "my folder" 
-git pull 
-git push 
+git commit -m "my folder" /home/laoning/proj1/gp2012
+git pull /home/laoning/proj1/gp2012
+git push /home/laoning/proj1/gp2012
 
 
 #echo hello >> /home/laoning/proj1/gp2012/lining/file-tmp
