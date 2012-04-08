@@ -10,7 +10,7 @@ git init /home/laoning/proj1/gp2012
 git add /home/laoning/proj1/gp2012/lining 
 git commit -m "my folder" /home/laoning/proj1/gp2012
 
-#git pull /home/laoning/proj1/gp2012
+git pull /home/laoning/proj1/gp2012
 git push /home/laoning/proj1/gp2012
 
 
