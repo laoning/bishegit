@@ -9,7 +9,7 @@
 git init /home/laoning/proj1/gp2012
 git add /home/laoning/proj1/gp2012/shell1 
 git commit -m "my folder" /home/laoning/proj1/gp2012
-
+333333333333333333333333333333333333333333
 #git pull /home/laoning/proj1/gp2012
 git push /home/laoning/proj1/gp2012
 
