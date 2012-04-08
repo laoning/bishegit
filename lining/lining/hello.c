@@ -1,0 +1,20 @@
+<<<<<<< HEAD
+#include<stdio.h>
+=======
+﻿#include<stdio.h>
+
+int main()
+{
+        printf("Hello, World!\n");
+        printf("Hello, our team members!\n");
+        printf("您好，让我们来试一试汉字的显示。\n");
+        printf("您好，来自周红杰的问候\n");
+		printf("您好，我叫徐明华 ");
+           printf("您好，我是李宁\n");
+
+
+        printf("您好，我是周红杰\n");
+ printf("您好，我是龚泉枫\n");
+
+         
+}
