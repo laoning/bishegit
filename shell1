@@ -1,11 +1,11 @@
 #!/bin/sh
-/bin/ls -a /home/laoning/proj1/gp2012 > /home/laoning//proj1/gp2012/lining/temp
+
 
  /bin/ls -a > /home/laoning/proj1/gp2012/lining/file
- /bin/cp /home/laoning/proj1/gp2012/lining/file /home/laoning/proj1/gp2012/lining/file1
+ 
 
 
-git pull 
+#git pull 
 git init 
 git commit -a -m "my folder" 
 git push 
