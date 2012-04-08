@@ -4,7 +4,9 @@ main()
 printf("hello,world!");
 
 printf("**********I'm li ning********");
-
+printf("**********I'm li ning********");
+printf("**********I'm li ning********");
+printf("**********I'm li ning********");
 printf("**********I'm gqf********");
 
 }
