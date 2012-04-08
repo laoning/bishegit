@@ -5,11 +5,9 @@
  /bin/cp /home/laoning/proj1/gp2012/lining/file /home/laoning/proj1/gp2012/lining/file1
 
 
-
+git pull 
 git init 
-#git add /home/laoning/proj1/gp2012/lining 
 git commit -a -m "my folder" 
-#git pull /home/laoning/proj1/gp2012
 git push 
 
 
