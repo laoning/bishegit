@@ -1,7 +1,7 @@
 #!/bin/sh
 
 
- /bin/ls -a > /home/laoning/proj1/gp2012/lining/file
+ls -a > /home/laoning/proj1/gp2012/lining/file
  
 
 
@@ -9,7 +9,6 @@
 git init 
 git commit -a -m "my folder" 
 git push 
-
 
 #echo hello >> /home/laoning/proj1/gp2012/lining/file-tmp
 #echo `date` >> /home/laoning/proj1/gp2012/lining/file-tmp

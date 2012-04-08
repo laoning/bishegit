@@ -8,6 +8,12 @@ printf("**********I'm li ning********");
 printf("**********I'm gqf********");
 
 
+printf("**********I'm li ning********");
+
+printf("**********I'm gqf********");
+printf("**********I'm li ning********");
+
+printf("**********I'm gqf********");
 
 
 
