@@ -1,4 +1,7 @@
 #include<stdio.h>
+
+﻿#include<stdio.h>
+
 int main()
 {
         printf("Hello, World!\n");
@@ -7,5 +10,10 @@ int main()
         printf("您好，来自周红杰的问候\n");
 		printf("您好，我叫徐明华 ");
            printf("您好，我是李宁\n");
+
+
+        printf("您好，我是周红杰\n");
+ printf("您好，我是龚泉枫\n");
+
          
 }
