@@ -1,8 +1,8 @@
 #title:
 >a language used in dsl
-#原始数据:
->试卷排版项目案例
->特定应用领域语言要求
-#进度计划:
-##第一至第三周
->根据任务书……
+#the date:
+>the case of assisgement
+>the request in dsl
+#plan:
+## 1 to 3 weeks
+>acroding the assisgement to......
