@@ -4,7 +4,8 @@
 int main()
 {
  FILE *fpi, *fpo;
- int  c;
+ int  a[4]={'<','/','h','>'};
+ int  c,i;
  if((fpi=fopen("/home/wml/rsw.txt","r"))==NULL)
   {
    printf("文件rsw.txt打开失败!");
@@ -22,9 +23,16 @@ int main()
   c=fgetc(fpi);
   if(c=='\n')
  {   
-   fputc(c,fpo);
+   for(i=0;i<4;i++)
+   {
+    c=a[i];
+    fputc(c,fpo);
+   }
+  c='\n';
+  fputc(c,fpo); 
 
- }
+}
+ 
 
   fputc(c,fpo);
  }
