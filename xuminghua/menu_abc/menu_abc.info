@@ -1,4 +1,0 @@
-name=菜单abc
-description=用于学习菜单API的简单实例模块
-core=7.x
-package=custom
