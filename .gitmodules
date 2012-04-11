@@ -1,0 +1,3 @@
+[submodule "xuminghua"]
+	path = xuminghua
+	url = ssh://git@trac.lib.njit.edu.cn:16022/srv/git/xuminghua.git
