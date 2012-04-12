@@ -1,14 +1,14 @@
 #!/bin/sh
 
 
-ls -a > /home/laoning/proj1/gp2012/lining/file
+ls -a > /home/laoning/laoning/file
  
+echo hello >> /home/laoning/laoning/file-tmp
+echo `date` >> /home/laoning/laoning/file-tmp
 
-
-#git pull 
+cd /home/laoning/laoning 
 git init 
 git commit -a -m "my folder" 
 git push 
 
-#echo hello >> /home/laoning/proj1/gp2012/lining/file-tmp
-#echo `date` >> /home/laoning/proj1/gp2012/lining/file-tmp
+
