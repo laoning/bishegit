@@ -9,7 +9,7 @@ echo `date` >> /home/laoning/laoning/file-tmp
 cd /home/laoning/laoning 
 git init 
 git add -A
-git commit -m "my folder" 
+git commit -m "my experiment" 
 git push 
 
 
