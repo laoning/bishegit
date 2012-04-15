@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE biz-integral-validation PUBLIC "
+   -//BIZ-INTEGTAL//DTD BIZ-INTEGTAL-VALIDATION 1.0//EN" 
+    "http://biz-integral.com/dtd/biz-integral-validation1.0.dtd">
+<biz-integral-validation namespace="crm.cc">
+    <constraintSet name="userCd">
+        <constraint name="numericAlphaString">
+        </constraint>
+        <constraint name="maxLength">
+            <arg name="maxLength" value="20" position="1" />
+        </constraint>
+    </constraintSet>
+    
+    <constraintSet name="userName">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="30" position="1"/>
+        </constraint>
+    </constraintSet>
+    
+    <constraintSet name="userSearchName">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="30" position="1"/>
+        </constraint>
+    </constraintSet>
+    
+    <constraintSet name="departmentCd">
+        <constraint name="numericAlphaString">
+        </constraint>
+        <constraint name="maxLength">
+            <arg name="maxLength" value="20" position="1" />
+        </constraint>
+    </constraintSet>
+    
+    <constraintSet name="departmentName">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="30" position="1"/>
+        </constraint>
+    </constraintSet>
+    
+    <constraintSet name="departmentShortName">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="30" position="1"/>
+        </constraint>
+    </constraintSet>
+    
+    <constraintSet name="departmentSearchName">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="30" position="1"/>
+        </constraint>
+    </constraintSet>
+    
+    <constraintSet name="standardDate">
+        <constraint name="datePattern">
+            <arg name="datePattern" value="yyyy-mm-dd" position="1"/>
+        </constraint>
+        <constraint name="dateRange">
+            <arg name="maxDate" value="3000-01-01" position="2" />
+            <arg name="minDate" value="1900-01-01" position="1" />
+        </constraint>
+    </constraintSet>
+        
+    <constraintSet name="crmAccountName">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="50" position="1"/>
+        </constraint>
+    </constraintSet>
+            
+    <constraintSet name="crmAccountShortName">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="30" position="1"/>
+        </constraint>
+    </constraintSet>
+    
+        <constraintSet name="crmAccountNameKana">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="50" position="1"/>
+        </constraint>
+    </constraintSet>
+                
+    <constraintSet name="crmAccountSearchName">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="30" position="1"/>
+        </constraint>
+    </constraintSet>
+    
+    <constraintSet name="crmAccountCd">
+        <constraint name="numericAlphaString">
+        </constraint>
+        <constraint name="maxLength">
+            <arg name="maxLength" value="20" position="1" />
+        </constraint>
+    </constraintSet>
+    
+    <constraintSet name="customerCd">
+        <constraint name="numericAlphaString">
+        </constraint>
+        <constraint name="maxLength">
+            <arg name="maxLength" value="20" position="1" />
+        </constraint>
+    </constraintSet>
+                
+    <constraintSet name="customerName">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="50" position="1"/>
+        </constraint>
+    </constraintSet>
+                
+    <constraintSet name="customerShortName">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="30" position="1"/>
+        </constraint>
+    </constraintSet>
+                
+    <constraintSet name="customerSearchName">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="30" position="1"/>
+        </constraint>
+    </constraintSet>
+                    
+    <constraintSet name="address">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="60" position="1"/>
+        </constraint>
+    </constraintSet>
+        
+    <constraintSet name="telephoneNumber">
+        <constraint name="numericAlphaString">
+        </constraint>
+        <constraint name="maxLength">
+            <arg name="maxLength" value="20" position="1" />
+        </constraint>
+    </constraintSet>
+    
+    <!-- 品目カテゴリコード -->
+    <constraintSet name="itemCategoryCd">
+        <constraint name="numericAlphaString">
+        </constraint>
+        <constraint name="maxLength">
+            <arg name="maxLength" value="20" position="1" />
+        </constraint>
+    </constraintSet>
+    
+    <!-- CRMコンタクトコード -->
+    <constraintSet name="crmContactCd">
+        <constraint name="numericAlphaString">
+        </constraint>
+        <constraint name="maxLength">
+            <arg name="maxLength" value="20" position="1" />
+        </constraint>
+    </constraintSet>
+    
+    <!-- 案件コード -->
+    <constraintSet name="proposalCd">
+        <constraint name="numericAlphaString">
+        </constraint>
+        <constraint name="maxLength">
+            <arg name="maxLength" value="20" position="1" />
+        </constraint>
+    </constraintSet>
+    
+    <constraintSet name="proposalName">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="50" position="1" />
+        </constraint>
+    </constraintSet>
+    
+     <!-- キャンペーンコード -->
+    <constraintSet name="campaignCd">
+        <constraint name="numericAlphaString">
+        </constraint>
+        <constraint name="maxLength">
+            <arg name="maxLength" value="20" position="1" />
+        </constraint>
+    </constraintSet>
+    
+     <!-- 都道府県コード -->
+    <constraintSet name="tdfkCd">
+        <constraint name="numericAlphaString">
+        </constraint>
+        <constraint name="maxLength">
+            <arg name="maxLength" value="2" position="1" />
+        </constraint>
+    </constraintSet>
+    
+     <!-- 都道府県名 -->
+    <constraintSet name="tdfkAddress">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="30" position="1" />
+        </constraint>
+    </constraintSet>
+    
+     <!-- 市区町村コード -->
+    <constraintSet name="skcsCd">
+        <constraint name="numericAlphaString">
+        </constraint>
+        <constraint name="maxLength">
+            <arg name="maxLength" value="3" position="1" />
+        </constraint>
+    </constraintSet>
+    
+     <!-- 市区町村名 -->
+    <constraintSet name="skcsAddress">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="30" position="1" />
+        </constraint>
+    </constraintSet>
+    
+    <!-- 国コード -->
+    <constraintSet name="countryCd">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="5" position="1" />
+        </constraint>
+        <constraint name="numericAlphaString">
+        </constraint>
+    </constraintSet>
+    
+    <!-- 郵便番号 -->
+    <constraintSet name="zipCode">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="10" position="1" />
+        </constraint>
+        <constraint name="numericAlphaString">
+        </constraint>
+    </constraintSet>
+    
+    
+    <constraintSet name="address1">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="60" position="1" />
+        </constraint>
+    </constraintSet>
+    <constraintSet name="address2">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="60" position="1" />
+        </constraint>
+    </constraintSet>
+    <constraintSet name="address3">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="60" position="1" />
+        </constraint>
+    </constraintSet>
+    
+    <!-- 内線番号 -->
+    <constraintSet name="extensionNumber">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="20" position="1" />
+        </constraint>
+        <constraint name="numericAlphaString">
+        </constraint>
+    </constraintSet>
+    <!-- FAX番号 -->
+    <constraintSet name="faxNumber">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="20" position="1" />
+        </constraint>
+        <constraint name="numericAlphaString">
+        </constraint>
+    </constraintSet>
+    
+    <!-- 内線FAX番号 -->
+    <constraintSet name="extensionFaxNumber">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="20" position="1" />
+        </constraint>
+        <constraint name="numericAlphaString">
+        </constraint>
+    </constraintSet>
+    <!-- メールアドレス -->
+    <constraintSet name="emailAddress">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="50" position="1" />
+        </constraint>
+    </constraintSet>
+   <!-- url -->
+    <constraintSet name="url">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="50" position="1" />
+        </constraint>
+    </constraintSet>
+       <!-- 備考 -->
+    <constraintSet name="notes">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="256" position="1" />
+        </constraint>
+    </constraintSet>
+           <!-- 役職 -->
+    <constraintSet name="post">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="30" position="1" />
+        </constraint>
+    </constraintSet>
+               <!-- フラグ -->
+    <constraintSet name="flag">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="1" position="1" />
+        </constraint>
+        <constraint name="number">
+        </constraint>
+        <constraint name="mask">
+            <arg name="mask" value="[0-1]{1}" position="1" />
+        </constraint>
+    </constraintSet>
+    
+    <!-- CRMコンタクト名 -->
+    <constraintSet name="crmContactName">
+        <constraint name="maxLength" >
+            <arg name="maxLength" value="50" position="1" />
+        </constraint>    
+    </constraintSet>
+    
+    <!-- CRMコンタクト略称 -->
+    <constraintSet name="crmContactShortName">
+        <constraint name="maxLength" >
+            <arg name="maxLength" value="30" position="1" />
+        </constraint>
+    </constraintSet>
+    
+    <!-- CRMコンタクト名（カナ） -->
+    <constraintSet name="crmContactNameKana">
+        <constraint name="maxLength" >
+            <arg name="maxLength" value="50" position="1" />
+        </constraint>
+    </constraintSet>
+    
+    <!-- CRMコンタクト検索名 -->
+    <constraintSet name="crmContactSearchName">
+        <constraint name="maxLength" >
+            <arg name="maxLength" value="30" position="1" />
+        </constraint>
+    </constraintSet>
+    
+    <!-- CRMコンタクトタイプ -->
+    <constraintSet name="crmContactType">
+        <constraint name="maxLength" >
+            <arg name="maxLength" value="30" position="1" />
+        </constraint>
+    </constraintSet>
+    
+    <!-- 所属 -->
+    <constraintSet name="belong">
+        <constraint name="maxLength" >
+            <arg name="maxLength" value="30" position="1" />
+        </constraint>
+    </constraintSet>
+    
+    <!-- キーパーソン -->
+    <constraintSet name="keyPerson">
+        <constraint name="maxLength" >
+            <arg name="maxLength" value="30" position="1" />
+        </constraint>
+    </constraintSet>
+    
+    <constraintSet name="itemCd">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="20" position="1" />
+        </constraint>
+        <constraint name="numericAlphaString">
+        </constraint>
+    </constraintSet>
+    <constraintSet name="itemName">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="30" position="1" />
+        </constraint>
+    </constraintSet>
+    <constraintSet name="competitionName">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="50" position="1" />
+        </constraint>
+    </constraintSet>
+    <constraintSet name="campaignName">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="50" position="1" />
+        </constraint>
+    </constraintSet>
+    
+    <!-- 獲得案件事例 -->
+    <constraintSet name="acquirementProposalCase">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="30" position="1" />
+        </constraint>
+    </constraintSet>
+    <!-- 概要 -->
+    <constraintSet name="overview">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="300" position="1" />
+        </constraint>
+    </constraintSet>
+    
+    <!-- 出身地 -->
+    <constraintSet name="homeTown">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="30" position="1" />
+        </constraint>
+    </constraintSet>
+    
+    <!-- 予備（テキスト） -->
+    <constraintSet name="customFieldTxt">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="300" position="1" />
+        </constraint> 
+    </constraintSet>
+    
+    <!-- 予備（数値） -->
+    <constraintSet name="customFieldNm">
+        <constraint name="number">
+        </constraint>
+        <constraint name="numericRange">
+            <arg name="max" value="999999999999999" position="2" />
+            <arg name="min" value="0" position="1" />
+            <arg name="equals" value="true" position="3" />
+        </constraint>
+    </constraintSet>
+    
+    <!-- 予備（日付） -->
+    <constraintSet name="customFieldDt">
+        <constraint name="datePattern">
+            <arg name="datePattern" value="yyyy-mm-dd" position="1" />
+        </constraint>
+        <constraint name="dateRange">
+            <arg name="maxDate" value="3000-01-01" position="2" />
+            <arg name="minDate" value="1900-01-01" position="1" />
+            <arg name="equals" value="true" position="3" />
+        </constraint>
+    </constraintSet>
+
+    <!-- 入力日付 -->
+    <constraintSet name="entyStandardDate">
+        <constraint name="datePattern">
+            <arg name="datePattern" value="yyyy-mm-dd" position="1" />
+        </constraint>
+        <constraint name="dateRange">
+            <arg name="maxDate" value="2999-12-31" position="2" />
+            <arg name="minDate" value="1900-01-01" position="1" />
+            <arg name="equals" value="true" position="3" />
+        </constraint>
+    </constraintSet>
+
+    <!-- 会社コード -->
+    <constraintSet name="companyCd">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="20" position="1" />
+        </constraint>
+        <constraint name="numericAlphaString">
+        </constraint>
+    </constraintSet>
+
+    <!-- パラメータ値 -->
+    <constraintSet name="parameterValue">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="1000" position="1" />
+        </constraint>
+    </constraintSet>
+
+    <!-- パラメータコード -->
+    <constraintSet name="parameterCd">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="100" position="1" />
+        </constraint>
+        <constraint name="numericAlphaString">
+        </constraint>
+    </constraintSet>
+
+    <!-- 期間コード -->
+    <constraintSet name="termCd">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="50" position="1" />
+        </constraint>
+        <constraint name="numericAlphaString">
+        </constraint>
+    </constraintSet>
+
+    <!-- バージョン番号 -->
+    <constraintSet name="versionNo">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="18" position="1" />
+        </constraint>
+        <constraint name="number">
+        </constraint>
+    </constraintSet>
+
+    <!-- アカウントグループコード -->
+    <constraintSet name="crmAccountGroupCd">
+        <constraint name="numericAlphaString">
+        </constraint>
+        <constraint name="maxLength">
+            <arg name="maxLength" value="20" position="1" />
+        </constraint>
+    </constraintSet>
+
+    <!-- アカウントグループ名 -->
+    <constraintSet name="crmAccountGroupName">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="50" position="1"/>
+        </constraint>
+    </constraintSet>
+                
+    <!-- アカウントグループ検索名 -->
+    <constraintSet name="crmAccountGroupSearchName">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="30" position="1"/>
+        </constraint>
+    </constraintSet>
+
+    <!-- アカウント分類コード -->
+    <constraintSet name="crmAccountClassCd">
+        <constraint name="numericAlphaString">
+        </constraint>
+        <constraint name="maxLength">
+            <arg name="maxLength" value="20" position="1" />
+        </constraint>
+    </constraintSet>
+
+    <!-- アカウント分類名 -->
+    <constraintSet name="crmAccountClassName">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="50" position="1"/>
+        </constraint>
+    </constraintSet>
+    
+    <!-- 取引種別 -->
+    <constraintSet name="dealClass">
+        <constraint name="maxLength">
+            <arg name="maxLength" value="100" position="1"/>
+        </constraint>
+    </constraintSet>
+</biz-integral-validation>

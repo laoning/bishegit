@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
+<components namespace="system_jdbc">
+    <include path="jta-10.dicon"/>
+    <include path="jdbc-extension.dicon"
+        condition="@org.seasar.framework.util.ResourceUtil@isExist('convention.dicon')"/>
+
+    <component class="org.seasar.extension.jdbc.impl.BasicResultSetFactory"/>
+    <!--
+    <component class="org.seasar.extension.jdbc.impl.OracleResultSetFactory"/>
+    -->
+    <component class="org.seasar.extension.jdbc.impl.ConfigurableStatementFactory">
+        <arg>
+            <component class="org.seasar.extension.jdbc.impl.BasicStatementFactory"/>
+            <!--
+            <component class="org.seasar.extension.jdbc.impl.BooleanToIntStatementFactory"/>
+            -->
+        </arg>
+        <property name="fetchSize">100</property>
+        <!--
+        <property name="maxRows">100</property>
+        -->
+    </component>
+    <component name="connectionPool"
+        class="org.seasar.extension.dbcp.impl.ConnectionPoolImpl">
+        <property name="timeout">600</property>
+        <property name="maxPoolSize">10</property>
+        <property name="allowLocalTx">true</property>
+        <destroyMethod name="close"/>
+    </component>
+
+    <component name="dataSource"
+        class="org.seasar.extension.dbcp.impl.DataSourceImpl"
+    />
+
+    <component name="xaDataSource"
+        class="org.seasar.extension.dbcp.impl.XADataSourceImpl">
+        <property name="driverClassName">
+            "oracle.jdbc.driver.OracleDriver"
+        </property>
+        <property name="URL">
+            "jdbc:oracle:thin:@host:1521:databasename"
+        </property>
+        <property name="user">"user_name"</property>
+        <property name="password">"password"</property>
+    </component>
+</components>

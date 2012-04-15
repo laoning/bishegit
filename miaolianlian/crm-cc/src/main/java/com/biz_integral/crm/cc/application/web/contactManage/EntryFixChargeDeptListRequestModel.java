@@ -1,0 +1,48 @@
+/*
+ * Copyright (c) 2009-2010 NTT DATA BIZINTEGRAL CORPORATION. All rights reserved.
+ */
+package com.biz_integral.crm.cc.application.web.contactManage;
+
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+
+import com.biz_integral.extension.validation.annotation.Arg;
+import com.biz_integral.extension.validation.annotation.DomainConstraint;
+
+/**
+ * アカウント登録/更新画面の担当組織設定ボタンの確定担当組織リストモデルです。
+ */
+public final class EntryFixChargeDeptListRequestModel {
+
+    /**
+     * 組織名
+     */
+    @DomainConstraint(namespace = "crm.cc", type = "departmentName", arg0 = @Arg(key = "CRM.CC.departmentName"))
+    public String departmentName;
+
+    /**
+     * 組織コード
+     */
+    @DomainConstraint(namespace = "crm.cc", type = "departmentCd", arg0 = @Arg(key = "CRM.CC.departmentCd"))
+    public String departmentCd;
+
+    /**
+     * 有効期間開始日
+     */
+    @DomainConstraint(namespace = "crm.cc", type = "standardDate", arg0 = @Arg(key = "CRM.CC.effectiveTermStart"))
+    public String effectiveTermStart;
+
+    /**
+     * 有効期間終了日
+     */
+    @DomainConstraint(namespace = "crm.cc", type = "standardDate", arg0 = @Arg(key = "CRM.CC.effectiveTermEnd"))
+    public String effectiveTermEnd;
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this);
+    }
+
+}

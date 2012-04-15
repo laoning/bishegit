@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
+<components>
+    <include path="crm_s2jdbc.dicon"/>
+    <component name="configurationResouce" 
+      class="com.biz_integral.foundation.core.configuration.impl.ClassPathConfigurationResource" >
+      <property name="path">
+        "biz-application-config-crm.xml"
+      </property>
+    </component>
+</components>

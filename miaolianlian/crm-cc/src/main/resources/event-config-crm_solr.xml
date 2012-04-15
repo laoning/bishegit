@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<event-config>
+
+    <event-group>
+        <event-key>context_loading</event-key>
+        <event-class>
+            com.biz_integral.crm.extension.solr.search.event.ContextLoadingEvent
+        </event-class>
+        <event-factory>
+            <factory-class>
+                jp.co.intra_mart.framework.extension.seasar.event.S2EventListenerFactory
+            </factory-class>
+            <init-param>
+                <param-name>listener</param-name>
+                <param-value>
+                    com.biz_integral.crm.extension.solr.search.event.listener.ContextLoadingEventListener
+                </param-value>
+            </init-param>
+        </event-factory>
+    </event-group>
+    
+</event-config>

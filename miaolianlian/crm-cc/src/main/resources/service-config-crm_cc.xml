@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service-config>
+  <input-error>
+    <page-path>/j2ee/document/error/input_error.jsp</page-path>
+  </input-error>
+  <service-error>
+    <page-path>/j2ee/document/error/service_error.jsp</page-path>
+  </service-error>
+  <system-error>
+    <page-path>/j2ee/document/error/system_error.jsp</page-path>
+  </system-error>
+  
+  <!-- 20100809 アカウント検索の追加 -->
+  <service>
+    <service-id>accountManage_search</service-id>
+    <controller-class>
+      com.biz_integral.service.maskat.service.ContextLoadingServiceController
+    </controller-class>
+    <transition-class>
+      com.biz_integral.service.maskat.transition.ContextLoadingServiceTransition
+    </transition-class>
+  </service>
+  
+  <!-- 20100817 コンタクト検索の追加 -->
+  <service>
+    <service-id>contactManage_search</service-id>
+    <controller-class>
+      com.biz_integral.service.maskat.service.ContextLoadingServiceController
+    </controller-class>
+    <transition-class>
+      com.biz_integral.service.maskat.transition.ContextLoadingServiceTransition
+    </transition-class>
+  </service>
+
+  <!-- マスタメンテ 接続会社設定 -->
+  <service>
+    <service-id>connectCompanySet_connectCompanySet</service-id>
+    <controller-class>
+      com.biz_integral.service.maskat.service.ContextLoadingServiceController
+    </controller-class>
+    <transition-class>
+      com.biz_integral.service.maskat.transition.ContextLoadingServiceTransition
+    </transition-class>
+  </service>
+
+  <!-- マスタメンテ パラメータ検索 -->
+  <service>
+    <service-id>parameterManage_search</service-id>
+    <controller-class>
+      com.biz_integral.service.maskat.service.ContextLoadingServiceController
+    </controller-class>
+    <transition-class>
+      com.biz_integral.service.maskat.transition.ContextLoadingServiceTransition
+    </transition-class>
+  </service>
+
+  <!-- マスタメンテ パラメータ登録 -->
+  <service>
+    <service-id>parameterManage_entry</service-id>
+    <controller-class>
+      com.biz_integral.service.maskat.service.ContextLoadingServiceController
+    </controller-class>
+    <transition-class>
+      com.biz_integral.service.maskat.transition.ContextLoadingServiceTransition
+    </transition-class>
+  </service>
+
+  <!-- マスタメンテ アカウント分類所属検索 -->
+  <service>
+    <service-id>accountBelongClassManage_search</service-id>
+    <controller-class>
+      com.biz_integral.service.maskat.service.ContextLoadingServiceController
+    </controller-class>
+    <transition-class>
+      com.biz_integral.service.maskat.transition.ContextLoadingServiceTransition
+    </transition-class>
+  </service>
+
+  <!-- マスタメンテ アカウントグループ検索 -->
+  <service>
+    <service-id>acctGrp_search</service-id>
+    <controller-class>
+      com.biz_integral.service.maskat.service.ContextLoadingServiceController
+    </controller-class>
+    <transition-class>
+      com.biz_integral.service.maskat.transition.ContextLoadingServiceTransition
+    </transition-class>
+  </service>
+
+  <!-- マスタメンテ アカウントグループ階層登録／更新 -->
+  <service>
+    <service-id>acctGrpHierarchy_entry</service-id>
+    <controller-class>
+      com.biz_integral.service.maskat.service.ContextLoadingServiceController
+    </controller-class>
+    <transition-class>
+      com.biz_integral.service.maskat.transition.ContextLoadingServiceTransition
+    </transition-class>
+  </service>
+
+  <!-- マスタメンテ アカウントグループ階層移動 -->
+  <service>
+    <service-id>acctGrpHierarchy_move</service-id>
+    <controller-class>
+      com.biz_integral.service.maskat.service.ContextLoadingServiceController
+    </controller-class>
+    <transition-class>
+      com.biz_integral.service.maskat.transition.ContextLoadingServiceTransition
+    </transition-class>
+  </service>
+
+  <!-- マスタメンテ アカウントグループ登録／更新 -->
+  <service>
+    <service-id>acctGrp_entry</service-id>
+    <controller-class>
+      com.biz_integral.service.maskat.service.ContextLoadingServiceController
+    </controller-class>
+    <transition-class>
+      com.biz_integral.service.maskat.transition.ContextLoadingServiceTransition
+    </transition-class>
+  </service>
+
+<!-- マスタメンテ アカウントグループ属性検索 -->
+  <service>
+    <service-id>accountGroupAttributeManage_search</service-id>
+    <controller-class>
+      com.biz_integral.service.maskat.service.ContextLoadingServiceController
+    </controller-class>
+    <transition-class>
+      com.biz_integral.service.maskat.transition.ContextLoadingServiceTransition
+    </transition-class>
+  </service>
+
+  <!-- マスタメンテ アカウントグループ属性登録／更新 -->
+  <service>
+    <service-id>accountGroupAttributeManage_entry</service-id>
+    <controller-class>
+      com.biz_integral.service.maskat.service.ContextLoadingServiceController
+    </controller-class>
+    <transition-class>
+      com.biz_integral.service.maskat.transition.ContextLoadingServiceTransition
+    </transition-class>
+  </service>
+
+<!-- マスタメンテ アカウント分類検索 -->
+  <service>
+    <service-id>accountClassManage_search</service-id>
+    <controller-class>
+      com.biz_integral.service.maskat.service.ContextLoadingServiceController
+    </controller-class>
+    <transition-class>
+      com.biz_integral.service.maskat.transition.ContextLoadingServiceTransition
+    </transition-class>
+  </service>
+
+<!-- マスタメンテ アカウント属性検索 -->
+  <service>
+    <service-id>accountAttributeManage_search</service-id>
+    <controller-class>
+      com.biz_integral.service.maskat.service.ContextLoadingServiceController
+    </controller-class>
+    <transition-class>
+      com.biz_integral.service.maskat.transition.ContextLoadingServiceTransition
+    </transition-class>
+  </service>
+</service-config>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN" 
+    "http://www.seasar.org/dtd/components24.dtd">
+<components initializeOnCreate="true" >
+    <component class="com.biz_integral.extension.convention.impl.NamingConventionSupplierImpl" >
+        <initMethod name="addRootPackageName">
+            <arg>"com.biz_integral.crm.cc.application"</arg>
+            <arg>"crm"</arg>
+            <arg>"cc"</arg>
+            <arg>true</arg>
+        </initMethod>
+        <initMethod name="addRootPackageName">
+            <arg>"com.biz_integral.crm.cc.domain"</arg>
+            <arg>"crm"</arg>
+            <arg>"cc"</arg>
+            <arg>true</arg>
+        </initMethod>
+    </component>
+</components>
