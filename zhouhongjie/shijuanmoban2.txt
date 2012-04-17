@@ -1,0 +1,25 @@
+banji=''   ";  
+xuehao="   ";  
+xingming="   ";
+Xiaoming（juzhong）="南京工程学院";    
+leixing="A";
+Xuenian xueqi="2011/2012学年 第2学期";   
+yeshu yema="共5页 第1页";
+Kechengsuoshubumen="通信工程";  
+kechengmingcheng="操作系统";
+Kaoshifangshi="闭卷";  
+shiyongbanji="计算机通信081";
+Mingtiren="王少东";  
+jiaoyanshizhurenshenhe="    ";   
+zhuguanlingdaobizhun="   ";
+
+Question  xuanzeti;
+  0 ; 1 ; 2 ; 3 ;
+Question  tiankongti;
+  0 ; 1 ; 2 ; 3 ;
+
+Question  panduanti;
+  0 ; 1 ; 2 ; 3 ;
+
+Question  jiandanti;
+  0 ; 1 ; 2 ; 3 ;
