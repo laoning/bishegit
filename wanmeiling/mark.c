@@ -4,7 +4,7 @@
 int main(int argc, char *argv[])
 {
  FILE *fpi, *fpo;
- int  c,i;
+// int  c,i;
  char buffer[256];
  if((fpi=fopen("experiment/assi.md","r"))==NULL)
   {
@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
  while(fgets(buffer,sizeof(buffer),fpi))
  {
   if (feof(fpi)) break;
- 
+    
   fputs(buffer,fpo);
  }
  fclose(fpo);
