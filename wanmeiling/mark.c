@@ -1,41 +1,29 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-int main()
+#include <string.h>
+int main(int argc, char *argv[])
 {
  FILE *fpi, *fpo;
- int  a[4]={'<','/','h','>'};
  int  c,i;
- if((fpi=fopen("rsw.txt","r"))==NULL)
+ char buffer[256];
+ char a[]="1.  毕业设计的原始数据:";
+ if((fpi=fopen("experiment/assi.md","r"))==NULL)
   {
-   printf("文件rsw.txt打开失败!");
+   printf("文件assi.md打开失败!");
    exit(1);
   }
-  printf("文件rsw.txt成功打开可用于读!");
+  printf("文件assi.md成功打开可用于读!");
  if((fpo=fopen("text.txt","w"))==NULL)
    {
    printf("text.txt打开失败!");
    exit(2);
   }
-   printf("text.txt成功打开可用于写!");
- while(!feof(fpi))
+ printf("text.txt成功打开可用于写!");
+ while(fgets(buffer,sizeof(buffer),fpi))
  {
-  c=fgetc(fpi);
   if (feof(fpi)) break;
-  if(c=='\n')
- {   
-   for(i=0;i<4;i++)
-   {
-    c=a[i];
-    fputc(c,fpo);
-   }
-  c='\n';
-  fputc(c,fpo); 
-
-}
  
-
-  fputc(c,fpo);
+  fputs(buffer,fpo);
  }
  fclose(fpo);
  fclose(fpi);
