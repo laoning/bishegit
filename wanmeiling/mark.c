@@ -6,7 +6,6 @@ int main(int argc, char *argv[])
  FILE *fpi, *fpo;
  int  c,i;
  char buffer[256];
- char a[]="1.  毕业设计的原始数据:";
  if((fpi=fopen("experiment/assi.md","r"))==NULL)
   {
    printf("文件assi.md打开失败!");
