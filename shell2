@@ -1,0 +1,5 @@
+#!/bin/sh
+cd /home/laoning/laoning
+git init
+git pull
+make
