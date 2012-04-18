@@ -1,3 +1,3 @@
-hello: hello.o
+hello.exe: hello.o
 hello.o: hello.c
 	cc -c hello.c
