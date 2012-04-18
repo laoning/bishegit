@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+    "http://www.seasar.org/dtd/components24.dtd">
+<components>
+  <component name="crmCcBeanMapper" 
+    class="com.biz_integral.foundation.core.mapper.impl.BeanMapperImpl" />
+
+  <component class="com.biz_integral.foundation.core.mapper.BeanMappingAutoRegister">
+    <initMethod name="addReferencePackageName">
+      <arg>"com.biz_integral.crm.cc"</arg>
+    </initMethod>
+  </component>
+
+  <component 
+    class="com.biz_integral.foundation.core.validation.configuration.impl.XmlConstraintValidationResource">
+    <property name="path">
+    "crm_cc-domain_validation.xml"
+    </property>
+ </component>
+</components>

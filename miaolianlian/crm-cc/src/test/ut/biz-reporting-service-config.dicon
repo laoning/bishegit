@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+  "http://www.seasar.org/dtd/components24.dtd">
+<components>
+  <component name="svfReportEngineConfiguration" 
+    class="com.biz_integral.service.reporting.svf.SvfReportEngineConfiguration">
+    <property name="version">8</property>
+
+    <initMethod name="addOption">
+      <arg>
+      @com.biz_integral.service.reporting.svf.SvfProductOption@PDF
+      </arg>
+    </initMethod>
+<!--  以下はSVF For PDF以外の製品を導入した際に有効にしてください-->
+<!--  SVF For RDE
+    <initMethod name="addOption">
+      <arg>
+            @com.biz_integral.service.reporting.svf.SvfProductOption@RDE
+      </arg>
+    </initMethod>
+-->
+<!--  SVF For JavaPrint
+    <initMethod name="addOption">
+      <arg>
+           @com.biz_integral.service.reporting.svf.SvfProductOption@JP
+      </arg>
+    </initMethod>
+-->
+<!--  SVF For WebClient
+    <initMethod name="addOption">
+      <arg>
+           @com.biz_integral.service.reporting.svf.SvfProductOption@WC
+      </arg>
+    </initMethod>
+-->
+  </component>
+</components>

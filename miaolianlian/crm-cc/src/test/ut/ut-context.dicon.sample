@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
+<components>
+	<!-- アプリケーションコンテキストの内容を記述します
+    以下記述例です
+    <component class="com.biz_integral.unit.mock.context.UnitContextProvider">
+       <property name="companyCode">"biz-integral"</property>
+       <property name="userID">"aoyagi"</property>
+       <property name="loginGroupID">"default"</property>
+       <property name="applicationID">"fms"</property>
+       <property name="moduleID">"core"</property>
+       <property name="useCaseID">"u01"</property>
+       <property name="processID">"p01"</property>
+       <property name="applicationMax">"30991231"</property>
+       <property name="applicationMin">"19000101"</property>
+       <property name="featureID">"f01"</property>
+    </component>
+     -->
+</components>

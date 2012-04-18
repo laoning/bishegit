@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE biz-integral PUBLIC "
+   -//BIZ-INTEGTAL//DTD BIZ-INTEGTAL-APPLICATION 1.0//EN" 
+    "http://biz-integral.com/dtd/biz-integral-application1.0.dtd">
+<biz-integral>
+    <application id="crm" />
+    <rootPackages>
+        <package>{package}</package>
+    </rootPackages>
+    <modules>
+        <module>{module}</module>
+    </modules>
+    <core-module>{core-module}</core-module>
+    <maskat-root>immk21</maskat-root>
+    <temporary-dir>{maskat-root}</temporary-dir>
+    <loginGroups>
+        <loginGroup id="{loginGroup-id}">
+            <company code="{company-code}">
+                <dataSource>{dataSource}</dataSource>
+            </company>
+        </loginGroup>
+    </loginGroups>
+</biz-integral>

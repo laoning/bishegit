@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<property-config>
+	<session>
+		<handler-class>
+			jp.co.intra_mart.framework.base.session.XmlSessionPropertyHandler
+		</handler-class>
+	</session>
+	<service>
+		<handler-class>
+			jp.co.intra_mart.framework.base.service.XmlServicePropertyHandler
+		</handler-class>
+		<init-param>
+			<param-name>dynamic</param-name>
+			<param-value>true</param-value>
+			<description>ハンドラ用 静的/動的ロードパラメータ</description>
+		</init-param>
+	</service>
+	<event>
+		<handler-class>
+			jp.co.intra_mart.framework.base.event.XmlEventPropertyHandler
+		</handler-class>
+		<init-param>
+			<param-name>dynamic</param-name>
+			<param-value />
+			<description>ハンドラ用 静的/動的ロードパラメータ</description>
+		</init-param>
+	</event>
+	<data>
+		<handler-class>
+			jp.co.intra_mart.framework.base.data.XmlDataPropertyHandler
+		</handler-class>
+		<init-param>
+			<param-name>dynamic</param-name>
+			<param-value />
+			<description>ハンドラ用 静的/動的ロードパラメータ</description>
+		</init-param>
+	</data>
+	<message>
+		<handler-class>
+			jp.co.intra_mart.framework.system.message.IntramartMessagePropertyHandler
+		</handler-class>
+	</message>
+	<i18n_message>
+		<handler-class>
+			jp.co.intra_mart.framework.base.message.DefaultMessagePropertyHandler
+		</handler-class>
+	</i18n_message>
+	<log>
+		<handler-class>
+			jp.co.intra_mart.framework.system.log.XmlLogPropertyHandler
+		</handler-class>
+	</log>
+</property-config>

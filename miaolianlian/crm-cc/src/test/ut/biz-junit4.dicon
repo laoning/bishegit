@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
+<components namespace="bizjunit4">
+	
+	<component name="context" class="com.biz_integral.unit.runners.BizInternalTestContext"/>
+
+    <component class="org.seasar.framework.unit.impl.DataAccessorImpl"/>
+
+    <component class="com.biz_integral.unit.runners.BizConfigFileIncluderImpl">
+        <initMethod name="addConfigFile">
+            <arg>"biz-jdbc.dicon"</arg>
+        </initMethod>
+        <initMethod name="addConfigFile">
+            <arg>context.testClassShortName + ".dicon"</arg>
+        </initMethod>
+        <property name="bindingMockFor">
+            context.testClassShortName + ".dicon"
+        </property>
+    </component>
+       
+    <component class="org.seasar.framework.unit.impl.TestDataPreparerImpl">
+        <initMethod name="addTestDataXlsPath">
+            <arg>context.testClassShortName + "_" + context.testMethodName + ".xls"</arg>
+        </initMethod>
+        <initMethod name="addTestDataXlsPath">
+            <arg>context.testClassShortName + ".xls"</arg>
+        </initMethod>
+    </component>
+
+    <component class="org.seasar.framework.unit.impl.ExpectedDataReaderImpl">
+        <initMethod name="addExpectedDataXlsPath">
+            <arg>context.testClassShortName + "_" + context.testMethodName + "_Expected" + ".xls"</arg>
+        </initMethod>
+    </component>
+
+</components>

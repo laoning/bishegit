@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service-config>
+	<service>
+		<service-id>init_search</service-id>
+        <controller-class>com.biz_integral.crm.extension.solr.search.controller.SolrInitSearchServiceController</controller-class>
+        <next-page>
+			<page-path>/crm/extension/solr/search/solr_search_result.jsp</page-path>
+		</next-page>
+	</service>
+	<service>
+		<service-id>search</service-id>
+		<controller-class>com.biz_integral.crm.extension.solr.search.controller.SolrSearchServiceController</controller-class>
+		<next-page>
+			<page-path>/crm/extension/solr/search/solr_search_result.jsp</page-path>
+		</next-page>
+		<transition-class>jp.co.intra_mart.foundation.solr.search.controller.SolrSearchTransition</transition-class>
+	</service>
+	<service>
+		<service-id>detail</service-id>
+		<next-page>
+			<page-path>/crm/extension/solr/search/solr_detail_view.jsp</page-path>
+		</next-page>
+	</service>
+	<service>
+		<service-id>close_window</service-id>
+		<next-page>
+			<page-path>/crm/extension/solr/search/close_window.jsp</page-path>
+		</next-page>
+	</service>
+</service-config>

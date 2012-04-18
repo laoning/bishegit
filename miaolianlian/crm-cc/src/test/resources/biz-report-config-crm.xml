@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE report PUBLIC "
+   -//BIZ-INTEGTAL//DTD REPORT-SERVICE 1.0//EN" 
+    "http://biz-integral.com/dtd/biz-reporting-service1.0.dtd">
+<report-service>
+  <application id="crm" />
+  <storagePath>/biz-integral/</storagePath>
+  <tempDirectory>/report/</tempDirectory>
+  <loginGroups>
+    <loginGroup id="{login-id}">
+      <company code="{company-code}">
+        <dataSource>
+          $KIND=ORCL.THIN;dbq={server-address};port={port};uid={username};pwd={password};sid={sid}
+        </dataSource>
+      </company>
+    </loginGroup>
+  </loginGroups>
+</report-service>

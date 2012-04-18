@@ -1,0 +1,108 @@
+/*
+ * Copyright (c) 2009-2010 NTT DATA BIZINTEGRAL CORPORATION. All rights reserved.
+ */
+package com.biz_integral.crm.cc.domain.dto;
+
+import java.util.Date;
+
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+
+/**
+ * アカウント登録/更新画面の活動一覧結果Dtoです。
+ */
+public final class SalesActivityResultDto {
+
+    /**
+     * 活動日
+     */
+    public Date salesActivityDate;
+
+    /**
+     * コンタクト名
+     */
+    public String crmContactName;
+
+    /**
+     * アカウント名
+     */
+    public String crmAccountName;
+
+    /**
+     * 担当者名
+     */
+    public String userName;
+
+    /**
+     * 活動状況
+     */
+    public String salesActivityStatus;
+
+    /**
+     * 案件名
+     */
+    public String proposalName;
+
+    /**
+     * カテゴリ
+     */
+    public String informCategory;
+
+    /**
+     * 報告内容
+     */
+    public String informContent;
+
+    /**
+     * 活動タイプ
+     */
+    public String salesActivityType;
+
+    /**
+     * 開始時間
+     */
+    public Date salesActivityStartDate;
+
+    /**
+     * 時間（分）
+     */
+    public Integer salesActivityTime;
+
+    /**
+     * コンタクトコード
+     */
+    public String crmContactCd;
+
+    /**
+     * アカウントコード
+     */
+    public String crmAccountCd;
+
+    /**
+     * 担当者コード
+     */
+    public String userCd;
+
+    /**
+     * 案件コード
+     */
+    public String proposalCd;
+
+    /**
+     * 営業活動ID
+     */
+    public String salesActivityId;
+
+    /**
+     * 営業活動報告ID
+     */
+    public String salesActivityInformId;
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this);
+    }
+
+}
