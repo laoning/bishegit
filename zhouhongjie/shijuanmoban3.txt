@@ -1,0 +1,10 @@
+xuenianxueqi="2011/2012学年 第2学期";   
+kechengsuoshubumen="通信工程";  
+kechengmingcheng="操作系统";
+kaoshifangshi="闭卷";  
+shiyongbanji="计算机通信081";
+mingtiren="某老师";  
+
+Question  xuanzeti 0  1  2  3 ;
+Question  tiankongti 0  1  2  3 ;
+Question  jiandanti 0  1  2  3 ;
