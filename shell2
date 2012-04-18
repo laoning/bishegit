@@ -3,5 +3,14 @@ cd /home/laoning/laoning
 echo hello >> /home/laoning/laoning/file-tmp1
 echo `date` >> /home/laoning/laoning/file-tmp1
 
+#git pull
 
-make
+if make
+  then
+     #echo什么参数可使之前的echo覆盖
+     echo  program is right! >>consequence
+else
+     
+     echo  there is an error! >>consequence
+fi
+
