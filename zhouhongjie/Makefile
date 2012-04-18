@@ -1,4 +1,4 @@
-parser: y.tab.c lex.yy.c y.tab.h parser.h common.c 
+parser: y.tab.c lex.yy.c y.tab.h parser.h
 	gcc -g -o parser y.tab.c lex.yy.c -ll -ly
 lex.yy.c: parser.l y.tab.h
 	lex parser.l

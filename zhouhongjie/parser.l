@@ -7,7 +7,8 @@
 numeral         -?(([0-9]+)|([0-9]*\.[0-9]+)([eE][-+]?[0-9]+)?)
 */
 
-none_blank_str  [^ \t\r\n\f]+
+none_blank_str  [^ \t\r\n\f;=]+
+quote_str       \"[^"]*\"
 comment         [#%].*
 comment_line    ^[ \t]*[#%].*\n
 eol             \n
@@ -18,17 +19,18 @@ cr              \r
 %%
 
 {cr}                /* ignore the Carriage Return */
-
+=               { return '='; }
 ;               { return ';'; }
-\<Question\>                { return QUESTION ; }
+{quote_str}      { yylval.string=strdup(yytext); return VAL ; }
+[ \t]+
+"Question"                { printf("%s\n","Question!"); return QUESTION ; }
 {none_blank_str}          { yylval.string=strdup(yytext); return NBS ; }
 
 {blankline}     { lineno++; }
 {eol}           { lineno++; }
 {comment}       { ; }
 {comment_line}  { lineno++; }
-
-.               { ; }
+.               { ECHO ; }
 
 
 %%

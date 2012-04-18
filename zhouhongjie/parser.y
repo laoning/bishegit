@@ -10,6 +10,7 @@
 
 
 %token QUESTION
+%token <string> VAL
 %token <string> NBS
 /*
 %token <string> NUMERAL
@@ -27,10 +28,10 @@
 exampaper:      sentence
             |   exampaper sentence
             ;
-sentence:	NBS '=' NBS ';'             { printf("%s\n","Get a set up value sentence. "); }
+sentence:	NBS '=' VAL ';'             { printf("%s\n","Get a set up value sentence. "); }
             |   QUESTION NBS qlist ';'  { printf("%s\n","It is question. "); }
             ;
-qlist:          NBS
+qlist:          NBS         { printf("%s\n","Here is a NBS."); }
             |   qlist NBS
             ;
 %%
