@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 int main(int argc, char *argv[])
 {
  FILE *fpi, *fpo;
@@ -21,8 +22,43 @@ int main(int argc, char *argv[])
  while(fgets(buffer,sizeof(buffer),fpi))
  {
   if (feof(fpi)) break;
-    
-  fputs(buffer,fpo);
+  if(*buffer=='1')
+  {
+    while(fgets(buffer,sizeof(buffer),fpi))
+         {
+            if(*buffer!='2')
+            fputs(buffer,fpo);
+            if(*buffer=='2')
+            {
+              while(fgets(buffer,sizeof(buffer),fpi))
+                  {
+                   
+                       if(*buffer!='3')
+                     fputs(buffer,fpo);
+                     if(*buffer=='3')
+                     {
+                      while(fgets(buffer,sizeof(buffer),fpi))
+                        {
+                          if(*buffer!='4')
+              
+                           fputs(buffer,fpo);
+                           if(*buffer=='4')
+                         {
+                          while(fgets(buffer,sizeof(buffer),fpi))                            
+                          {
+                           if(*buffer!='5')
+                           fputs(buffer,fpo);
+                           }
+                        }
+                      }
+                     }
+
+                  }
+            //  fputs(buffer,fpo);
+            }
+        }  
+   }
+
  }
  fclose(fpo);
  fclose(fpi);
