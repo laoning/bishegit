@@ -1,6 +1,5 @@
 %{
-//#include "parser.h"
-//#include "inter.h"
+#include "parser.h"
 %}
 
 %union {
@@ -10,10 +9,8 @@
 }
 
 
-%token VAR
-%token QUESTION1
-%token VALUE
-
+%token QUESTION
+%token <string> NBS
 /*
 %token <string> NUMERAL
 %token <string> SOMENAME
@@ -27,13 +24,17 @@
 
 %%
 
-exampaper:        /* nothing */
+exampaper:      sentence
             |   exampaper sentence
             ;
-sentence:	VAR '=' VALUE ';' { printf("%s\n","Get a sentence. ") }
-            |   QUESTION QTYPE QLIST
-	    ;
+sentence:	NBS '=' NBS ';'             { printf("%s\n","Get a set up value sentence. "); }
+            |   QUESTION NBS qlist ';'  { printf("%s\n","It is question. "); }
+            ;
+qlist:          NBS
+            |   qlist NBS
+            ;
 %%
+
 
 
 yyerror (s)  /* 语法分析函数yyparse()出错时调用该函数 */
