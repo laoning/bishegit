@@ -1,5 +1,7 @@
 #!/bin/sh
 cd /home/laoning/laoning
-git init
+echo hello >> /home/laoning/laoning/file-tmp1
+echo `date` >> /home/laoning/laoning/file-tmp1
+
 git pull
 make
