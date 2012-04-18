@@ -3,3 +3,9 @@ shell1脚本功能：实现定时上传，将实验项目push至服务器端
 shell2脚本功能：实现定时的将服务器上的项目，下拉至本地，并根据makefile文件完成编译。
 file-tmp：实验shell1是否定时执行
 file-tmp1：实验shell2是否定时执行
+/etc/crontab中内容：
+*/1 * * * * laoning /home/laoning/laoning/shell2
+*/1 * * * * laoning /home/laoning/laoning/shell1
+#“*/？”表示每？分钟执行一次
+# 分钟 小时 日期 月份 周 命令
+
