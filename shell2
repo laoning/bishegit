@@ -7,7 +7,6 @@ echo `date` >> /home/laoning/laoning/file-tmp1
 
 if make
   then
-     #echo什么参数可使之前的echo覆盖
      echo `date` >>consequence
      echo  program is right! >>consequence
 else
