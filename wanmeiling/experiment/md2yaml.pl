@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 
 #
-# mkd2tex -- A Markdown-to-LaTeX conversion tool for teachers
+# md2yaml -- A Markdown-to-LaTeX conversion tool for teachers
 #
 
 
@@ -52,7 +52,7 @@ GetOptions(\%cli_opts,
     'shortversion',
 );
 if ($cli_opts{'version'}) {		# Version info
-    print "\nThis is mkd2tex, version $VERSION.\n";
+    print "\nThis is md2yaml, version $VERSION.\n";
     print "It convert the Markdown file to LaTeX format.\n\n";
     exit 0;
 }
@@ -67,11 +67,11 @@ my $text;
     local $/;               # Slurp the whole file
     $text = <>;
 }
-print mkd2tex($text);
+print md2yaml($text);
 
 
 
-sub mkd2tex {
+sub md2yaml {
 
 	my $text = shift;
 
@@ -130,7 +130,7 @@ sub _EscapeSpecialChars {
 	foreach my $cur_token (@$tokens) {
 		if ($cur_token->[0] eq "tag") {
 			# Within tags, encode * and _ so they don't conflict
-			# with their use in mkd2tex for italics and strong.
+			# with their use in md2yaml for italics and strong.
 			# We're replacing each such character with its
 			# corresponding MD5 checksum value; this is likely
 			# overkill, but it should prevent us from colliding
