@@ -40,6 +40,10 @@ foreach my $char (split //, '\\`*_{}[]()>#+-.!') {
 	$g_escape_table{$char} = md5_hex($char);
 }
 
+my @g_section_key = qw(
+        原始数据 内容和要求 应完成的文件 参考文献 进度计划
+        );
+
 my %cli_opts;
 use Getopt::Long;
 Getopt::Long::Configure('pass_through');
@@ -234,9 +238,7 @@ sub _DoLists {
         }{
             my $list = $1;
             my $list_tag = $3;
-            # Turn double returns into triple returns, so that we can make a
-            # paragraph for the last item in a list, if necessary:
-            $list =~ s/\n{2,}/\n\n\n/g;
+
             my $result = _ProcessListItems($list, $marker_any);
             $result;
         }egmx;
@@ -268,209 +270,23 @@ sub _ProcessListItems {
 		my $item = $4;
 		my $leading_line = $1;
 		my $leading_space = $2;
-print "==>[$4]<===\n";
-		if ($leading_line or ($item =~ m/\n{2,}/)) {
-			$item = _RunBlockGamut(_Outdent($item));
-		}
-		else {
-			# Recursion for sub-lists:
-			$item = _DoLists(_Outdent($item));
-			chomp $item;
-			$item = _RunSpanGamut($item);
-		}
-
-		"<li>" . $item . "</li>\n";
+		my $list_mark = $3;
+    
+        $item = _DoTopBlock($list_mark, $item);
+		$item;
 	}egmx;
 
 	return $list_str;
 }
 
-
-
-sub _DoCodeBlocks {
-#
-#	Process mkd2tex `<pre><code>` blocks.
-#	
-
-	my $text = shift;
-
-	$text =~ s{
-			(?:\n\n|\A)
-			(	            # $1 = the code block -- one or more lines, starting with a space/tab
-			  (?:
-			    (?:[ ]{$g_tab_width} | \t)  # Lines must start with a tab or a tab-width of spaces
-			    .*\n+
-			  )+
-			)
-			((?=^[ ]{0,$g_tab_width}\S)|\Z)	# Lookahead for non-space at line-start, or end of doc
-		}{
-			my $codeblock = $1;
-			my $result; # return value
-
-			$codeblock = _EncodeCode(_Outdent($codeblock));
-			$codeblock = _Detab($codeblock);
-			$codeblock =~ s/\A\n+//; # trim leading newlines
-			$codeblock =~ s/\s+\z//; # trim trailing whitespace
-
-			$result = "\n\n<pre><code>" . $codeblock . "\n</code></pre>\n\n";
-
-			$result;
-		}egmx;
-
-	return $text;
-}
-
-
-sub _DoCodeSpans {
-#
-# 	*	Backtick quotes are used for <code></code> spans.
-# 
-# 	*	You can use multiple backticks as the delimiters if you want to
-# 		include literal backticks in the code span. So, this input:
-#     
-#         Just type ``foo `bar` baz`` at the prompt.
-#     
-#     	Will translate to:
-#     
-#         <p>Just type <code>foo `bar` baz</code> at the prompt.</p>
-#     
-#		There's no arbitrary limit to the number of backticks you
-#		can use as delimters. If you need three consecutive backticks
-#		in your code, use four for delimiters, etc.
-#
-#	*	You can use spaces to get literal backticks at the edges:
-#     
-#         ... type `` `bar` `` ...
-#     
-#     	Turns to:
-#     
-#         ... type <code>`bar`</code> ...
-#
-
-	my $text = shift;
-
-	$text =~ s@
-			(`+)		# $1 = Opening run of `
-			(.+?)		# $2 = The code block
-			(?<!`)
-			\1			# Matching closer
-			(?!`)
-		@
- 			my $c = "$2";
- 			$c =~ s/^[ \t]*//g; # leading whitespace
- 			$c =~ s/[ \t]*$//g; # trailing whitespace
- 			$c = _EncodeCode($c);
-			"<code>$c</code>";
-		@egsx;
-
-	return $text;
-}
-
-
-sub _EncodeCode {
-#
-# Encode/escape certain characters inside mkd2tex code runs.
-# The point is that in code, these characters are literals,
-# and lose their special mkd2tex meanings.
-#
-    local $_ = shift;
-
-	# Encode all ampersands; HTML entities are not
-	# entities within a mkd2tex code span.
-	s/&/&amp;/g;
-
-	# Encode $'s, but only if we're running under Blosxom.
-	# (Blosxom interpolates Perl variables in article bodies.)
-	{
-		no warnings 'once';
-    	if (defined($blosxom::version)) {
-    		s/\$/&#036;/g;	
-    	}
-    }
-
-
-	# Do the angle bracket song and dance:
-	s! <  !&lt;!gx;
-	s! >  !&gt;!gx;
-
-	# Now, escape characters that are magic in mkd2tex:
-	s! \* !$g_escape_table{'*'}!gx;
-	s! _  !$g_escape_table{'_'}!gx;
-	s! {  !$g_escape_table{'{'}!gx;
-	s! }  !$g_escape_table{'}'}!gx;
-	s! \[ !$g_escape_table{'['}!gx;
-	s! \] !$g_escape_table{']'}!gx;
-	s! \\ !$g_escape_table{'\\'}!gx;
-
-	return $_;
-}
-
-
-sub _DoItalicsAndBold {
-	my $text = shift;
-
-	# <strong> must go first:
-	$text =~ s{ (\*\*|__) (?=\S) (.+?[*_]*) (?<=\S) \1 }
-		{<strong>$2</strong>}gsx;
-
-	$text =~ s{ (\*|_) (?=\S) (.+?) (?<=\S) \1 }
-		{<em>$2</em>}gsx;
-
-	return $text;
-}
-
-
-sub _DoBlockQuotes {
-	my $text = shift;
-
-	$text =~ s{
-		  (								# Wrap whole match in $1
-			(
-			  ^[ \t]*>[ \t]?			# '>' at the start of a line
-			    .+\n					# rest of the first line
-			  (.+\n)*					# subsequent consecutive lines
-			  \n*						# blanks
-			)+
-		  )
-		}{
-			my $bq = $1;
-			$bq =~ s/^[ \t]*>[ \t]?//gm;	# trim one level of quoting
-			$bq =~ s/^[ \t]+$//mg;			# trim whitespace-only lines
-			$bq = _RunBlockGamut($bq);		# recurse
-
-			$bq =~ s/^/  /g;
-			# These leading spaces screw with <pre> content, so we need to fix that:
-			$bq =~ s{
-					(\s*<pre>.+?</pre>)
-				}{
-					my $pre = $1;
-					$pre =~ s/^  //mg;
-					$pre;
-				}egsx;
-
-			"<blockquote>\n$bq\n</blockquote>\n\n";
-		}egmx;
-
-
-	return $text;
-}
-
-
-
-
-sub _EncodeAmpsAndAngles {
-# Smart processing for ampersands and angle brackets that need to be encoded.
-
-	my $text = shift;
-
-	# Ampersand-encoding based entirely on Nat Irons's Amputator MT plugin:
-	#   http://bumppo.net/projects/amputator/
- 	$text =~ s/&(?!#?[xX]?(?:[0-9a-fA-F]+|\w+);)/&amp;/g;
-
-	# Encode naked <'s
- 	$text =~ s{<(?![a-z/?\$!])}{&lt;}gi;
-
-	return $text;
+sub _DoTopBlock {
+    my $list_mark = shift;
+    my $item = shift;
+    
+    $list_mark =~ s/\.//; # strip the dot
+    my $sec_key = $g_section_key[ $list_mark - 1 ];
+    $item =~ s/\A.*\n+//; # delete first line and the blank line follows
+    return " " x 2 . $sec_key . ": |\n" . $item;
 }
 
 
@@ -502,80 +318,6 @@ sub _EncodeBackslashEscapes {
     return $_;
 }
 
-
-sub _DoAutoLinks {
-	my $text = shift;
-
-	$text =~ s{<((https?|ftp):[^'">\s]+)>}{<a href="$1">$1</a>}gi;
-
-	# Email addresses: <address@domain.foo>
-	$text =~ s{
-		<
-        (?:mailto:)?
-		(
-			[-.\w]+
-			\@
-			[-a-z0-9]+(\.[-a-z0-9]+)*\.[a-z]+
-		)
-		>
-	}{
-		_EncodeEmailAddress( _UnescapeSpecialChars($1) );
-	}egix;
-
-	return $text;
-}
-
-
-sub _EncodeEmailAddress {
-#
-#	Input: an email address, e.g. "foo@example.com"
-#
-#	Output: the email address as a mailto link, with each character
-#		of the address encoded as either a decimal or hex entity, in
-#		the hopes of foiling most address harvesting spam bots. E.g.:
-#
-#	  <a href="&#x6D;&#97;&#105;&#108;&#x74;&#111;:&#102;&#111;&#111;&#64;&#101;
-#       x&#x61;&#109;&#x70;&#108;&#x65;&#x2E;&#99;&#111;&#109;">&#102;&#111;&#111;
-#       &#64;&#101;x&#x61;&#109;&#x70;&#108;&#x65;&#x2E;&#99;&#111;&#109;</a>
-#
-#	Based on a filter by Matthew Wickline, posted to the BBEdit-Talk
-#	mailing list: <http://tinyurl.com/yu7ue>
-#
-
-	my $addr = shift;
-
-	srand;
-	my @encode = (
-		sub { '&#' .                 ord(shift)   . ';' },
-		sub { '&#x' . sprintf( "%X", ord(shift) ) . ';' },
-		sub {                            shift          },
-	);
-
-	$addr = "mailto:" . $addr;
-
-	$addr =~ s{(.)}{
-		my $char = $1;
-		if ( $char eq '@' ) {
-			# this *must* be encoded. I insist.
-			$char = $encode[int rand 1]->($char);
-		} elsif ( $char ne ':' ) {
-			# leave ':' alone (to spot mailto: later)
-			my $r = rand;
-			# roughly 10% raw, 45% hex, 45% dec
-			$char = (
-				$r > .9   ?  $encode[2]->($char)  :
-				$r < .45  ?  $encode[1]->($char)  :
-							 $encode[0]->($char)
-			);
-		}
-		$char;
-	}gex;
-
-	$addr = qq{<a href="$addr">$addr</a>};
-	$addr =~ s{">.+?:}{">}; # strip the mailto: from the visible part
-
-	return $addr;
-}
 
 
 sub _UnescapeSpecialChars {
@@ -658,132 +400,3 @@ sub _Detab {
 1;
 
 __END__
-
-
-=pod
-
-=head1 NAME
-
-B<mkd2tex>
-
-
-=head1 SYNOPSIS
-
-B<mkd2tex.pl> [ B<--html4tags> ] [ B<--version> ] [ B<-shortversion> ]
-    [ I<file> ... ]
-
-
-=head1 DESCRIPTION
-
-mkd2tex is a text-to-HTML filter; it translates an easy-to-read /
-easy-to-write structured text format into HTML. mkd2tex's text format
-is most similar to that of plain text email, and supports features such
-as headers, *emphasis*, code blocks, blockquotes, and links.
-
-mkd2tex's syntax is designed not as a generic markup language, but
-specifically to serve as a front-end to (X)HTML. You can  use span-level
-HTML tags anywhere in a mkd2tex document, and you can use block level
-HTML tags (like <div> and <table> as well).
-
-For more information about mkd2tex's syntax, see:
-
-    http://daringfireball.net/projects/markdown/
-
-
-=head1 OPTIONS
-
-Use "--" to end switch parsing. For example, to open a file named "-z", use:
-
-	mkd2tex.pl -- -z
-
-=over 4
-
-
-=item B<--html4tags>
-
-Use HTML 4 style for empty element tags, e.g.:
-
-    <br>
-
-instead of mkd2tex's default XHTML style tags, e.g.:
-
-    <br />
-
-
-=item B<-v>, B<--version>
-
-Display mkd2tex's version number and copyright information.
-
-
-=item B<-s>, B<--shortversion>
-
-Display the short-form version number.
-
-
-=back
-
-
-
-=head1 BUGS
-
-To file bug reports or feature requests (other than topics listed in the
-Caveats section above) please send email to:
-
-    support@daringfireball.net
-
-Please include with your report: (1) the example input; (2) the output
-you expected; (3) the output mkd2tex actually produced.
-
-
-=head1 VERSION HISTORY
-
-See the readme file for detailed release notes for this version.
-
-1.0.1 - 14 Dec 2004
-
-1.0 - 28 Aug 2004
-
-
-=head1 AUTHOR
-
-    John Gruber
-    http://daringfireball.net
-
-    PHP port and other contributions by Michel Fortin
-    http://michelf.com
-
-
-=head1 COPYRIGHT AND LICENSE
-
-Copyright (c) 2003-2004 John Gruber   
-<http://daringfireball.net/>   
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are
-met:
-
-* Redistributions of source code must retain the above copyright notice,
-  this list of conditions and the following disclaimer.
-
-* Redistributions in binary form must reproduce the above copyright
-  notice, this list of conditions and the following disclaimer in the
-  documentation and/or other materials provided with the distribution.
-
-* Neither the name "mkd2tex" nor the names of its contributors may
-  be used to endorse or promote products derived from this software
-  without specific prior written permission.
-
-This software is provided by the copyright holders and contributors "as
-is" and any express or implied warranties, including, but not limited
-to, the implied warranties of merchantability and fitness for a
-particular purpose are disclaimed. In no event shall the copyright owner
-or contributors be liable for any direct, indirect, incidental, special,
-exemplary, or consequential damages (including, but not limited to,
-procurement of substitute goods or services; loss of use, data, or
-profits; or business interruption) however caused and on any theory of
-liability, whether in contract, strict liability, or tort (including
-negligence or otherwise) arising in any way out of the use of this
-software, even if advised of the possibility of such damage.
-
-=cut
