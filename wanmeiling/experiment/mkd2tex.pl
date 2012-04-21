@@ -40,7 +40,6 @@ foreach my $char (split //, '\\`*_{}[]()>#+-.!') {
 	$g_escape_table{$char} = md5_hex($char);
 }
 
-
 my %cli_opts;
 use Getopt::Long;
 Getopt::Long::Configure('pass_through');
@@ -197,7 +196,7 @@ sub _DoHeaders {
 
 sub _DoLists {
 #
-# Form HTML ordered (numbered) and unordered (bulleted) lists.
+# Form the main body of assignment.
 #
 	my $text = shift;
 	my $less_than_tab = $g_tab_width - 1;
@@ -208,7 +207,7 @@ sub _DoLists {
 	my $marker_any = qr/(?:$marker_ul|$marker_ol)/;
 
 	# Re-usable pattern to match any entirel ul or ol list:
-	my $whole_list = qr{
+	my $top_level_list = qr{
 		(								# $1 = whole list
 		  (								# $2
 			[ ]{0,$less_than_tab}
@@ -229,25 +228,18 @@ sub _DoLists {
 		)
 	}mx;
 
-	# We use a different prefix before nested lists than top-level lists.
-	# See extended comment in _ProcessListItems().
-	#
-	# Note: There's a bit of duplication here. My original implementation
-	# created a scalar regex pattern as the conditional result of the test on
-	# $g_list_level, and then only ran the $text =~ s{...}{...}egmx
-	# substitution once, using the scalar as the pattern. This worked,
-	# everywhere except when running under MT on my hosting account at Pair
-	# Networks. There, this caused all rebuilds to be killed by the reaper (or
-	# perhaps they crashed, but that seems incredibly unlikely given that the
-	# same script on the same server ran fine *except* under MT. I've spent
-	# more time trying to figure out why this is happening than I'd like to
-	# admit. My only guess, backed up by the fact that this workaround works,
-	# is that Perl optimizes the substition when it can figure out that the
-	# pattern will never change, and when this optimization isn't on, we run
-	# afoul of the reaper. Thus, the slightly redundant code to that uses two
-	# static s/// patterns rather than one conditional pattern.
-
-
+    $text =~ s{
+            ^
+            $top_level_list
+        }{
+            my $list = $1;
+            my $list_tag = $3;
+            # Turn double returns into triple returns, so that we can make a
+            # paragraph for the last item in a list, if necessary:
+            $list =~ s/\n{2,}/\n\n\n/g;
+            my $result = _ProcessListItems($list, $marker_any);
+            $result;
+        }egmx;
 	return $text;
 }
 
@@ -260,29 +252,6 @@ sub _ProcessListItems {
 
 	my $list_str = shift;
 	my $marker_any = shift;
-
-
-	# The $g_list_level global keeps track of when we're inside a list.
-	# Each time we enter a list, we increment it; when we leave a list,
-	# we decrement. If it's zero, we're not in a list anymore.
-	#
-	# We do this because when we're not inside a list, we want to treat
-	# something like this:
-	#
-	#		I recommend upgrading to version
-	#		8. Oops, now this line is treated
-	#		as a sub-list.
-	#
-	# As a single paragraph, despite the fact that the second line starts
-	# with a digit-period-space sequence.
-	#
-	# Whereas when we're inside a list (or sub-list), that line will be
-	# treated as the start of a sub-list. What a kludge, huh? This is
-	# an aspect of mkd2tex's syntax that's hard to parse perfectly
-	# without resorting to mind-reading. Perhaps the solution is to
-	# change the syntax rules such that sub-lists must start with a
-	# starting cardinal number; e.g. "1." or "a.".
-
 
 	# trim trailing blank lines:
 	$list_str =~ s/\n{2,}\z/\n/;
@@ -299,7 +268,7 @@ sub _ProcessListItems {
 		my $item = $4;
 		my $leading_line = $1;
 		my $leading_space = $2;
-
+print "==>[$4]<===\n";
 		if ($leading_line or ($item =~ m/\n{2,}/)) {
 			$item = _RunBlockGamut(_Outdent($item));
 		}
