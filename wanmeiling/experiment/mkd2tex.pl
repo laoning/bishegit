@@ -114,25 +114,6 @@ sub _RunBlockGamut {
 }
 
 
-sub _RunSpanGamut {
-#
-# These are all the transformations that occur *within* block-level
-# tags like paragraphs, headers, and list items.
-#
-	my $text = shift;
-
-	$text = _DoCodeSpans($text);
-
-	$text = _EscapeSpecialChars($text);
-
-	$text = _EncodeAmpsAndAngles($text);
-
-	$text = _DoItalicsAndBold($text);
-
-	# Do hard breaks:
-
-	return $text;
-}
 
 
 sub _EscapeSpecialChars {
@@ -178,11 +159,11 @@ sub _DoHeaders {
 	#	  --------
 	#
 	$text =~ s{ ^(.+)[ \t]*\n=+[ \t]*\n+ }{
-		"<h1>"  .  _RunSpanGamut($1)  .  "</h1>\n\n";
+		"  设计题目: "  .  ($1)  .  "\n";
 	}egmx;
 
 	$text =~ s{ ^(.+)[ \t]*\n-+[ \t]*\n+ }{
-		"<h2>"  .  _RunSpanGamut($1)  .  "</h2>\n\n";
+		"<h2>"  .  ($1)  .  "</h2>\n\n";
 	}egmx;
 
 
@@ -202,7 +183,12 @@ sub _DoHeaders {
 			\n+
 		}{
 			my $h_level = length($1);
-			"<h$h_level>"  .  _RunSpanGamut($2)  .  "</h$h_level>\n\n";
+            if ($h_level == 1) {
+                "  设计题目: "  .  ($2)  .  "\n";
+            }
+            else {
+                "<h$h_level>"  .  ($2)  .  "</h$h_level>\n\n";
+            }
 		}egmx;
 
 	return $text;

@@ -1,2 +1,2 @@
 #!/bin/sh
-perl mkd2tex.pl assi.md
+perl Markdown_1.0.1/Markdown.pl --html4tags assi.md | tee assi.html
