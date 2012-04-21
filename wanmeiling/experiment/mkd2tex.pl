@@ -286,7 +286,115 @@ sub _DoTopBlock {
     $list_mark =~ s/\.//; # strip the dot
     my $sec_key = $g_section_key[ $list_mark - 1 ];
     $item =~ s/\A.*\n+//; # delete first line and the blank line follows
-    return " " x 2 . $sec_key . ": |\n" . $item;
+    if ($list_mark == 5) {
+        $item = _DoSecondLevelList($item);
+        return " " x 2 . $sec_key . ":\n" . $item;
+    }
+    else {
+        return " " x 2 . $sec_key . ": |\n" . $item;
+    }
+}
+
+sub _DoSecondLevelList {
+#
+# Form the plan of assignment.
+#
+	my $text = shift;
+	my $less_than_tab = $g_tab_width - 1;
+
+	$text = _Outdent($text);
+
+	my $marker_ul  = qr/[*+-]/;
+	my $marker_ol  = qr/\d+[.]/;
+	my $marker_any = qr/(?:$marker_ul|$marker_ol)/;
+
+	# Re-usable pattern to match any entirel ul or ol list:
+	my $top_level_list = qr{
+		(								# $1 = whole list
+		  (								# $2
+			[ ]{0,$less_than_tab}
+			(${marker_any})				# $3 = first list item marker
+			[ \t]+
+		  )
+		  (?s:.+?)
+		  (								# $4
+			  \z
+			|
+			  \n{2,}
+			  (?=\S)
+			  (?!						# Negative lookahead for another list item marker
+				[ \t]*
+				${marker_any}[ \t]+
+			  )
+		  )
+		)
+	}mx;
+
+    $text =~ s{
+            ^
+            $top_level_list
+        }{
+            my $list = $1;
+            my $list_tag = $3;
+
+            my $result = _ProcessSecondListItems($list, $marker_any);
+            $result;
+        }egmx;
+	return $text;
+}
+
+sub _ProcessSecondListItems {
+#
+#	Process the contents of a single ordered or unordered list, splitting it
+#	into individual list items.
+#
+
+	my $list_str = shift;
+	my $marker_any = shift;
+
+	# trim trailing blank lines:
+	$list_str =~ s/\n{2,}\z/\n/;
+
+
+	$list_str =~ s{
+		(\n)?							# leading line = $1
+		(^[ \t]*)						# leading whitespace = $2
+		($marker_any) [ \t]+			# list marker = $3
+		((?s:.+?)						# list item text   = $4
+		(\n{1,2}))
+		(?= \n* (\z | \2 ($marker_any) [ \t]+))
+	}{
+		my $item = $4;
+		my $leading_line = $1;
+		my $leading_space = $2;
+		my $list_mark = $3;
+    
+        $item = _DoSecondLevelBlock($list_mark, $item);
+		$item;
+	}egmx;
+
+	return $list_str;
+}
+
+sub _DoSecondLevelBlock {
+    my $list_mark = shift;
+    my $item = shift;
+
+    $item =~ m{
+        ([^\n]+)            # weeks = $1
+        (.*)                # content = $2
+    }xms;
+
+    my $weeks = $1;
+    my $content = $2;
+    $content =~ s/\A\n+//;
+    $content =~ s/^/      /mg;
+    
+    return      " " x 4 . "-\n"
+            .   " " x 6 . "- "
+            .   $weeks . "\n"
+            .   " " x 6 . "- |\n"
+            .   $content;
 }
 
 
