@@ -110,18 +110,6 @@ sub _RunBlockGamut {
 
 	$text = _DoLists($text);
 
-	$text = _DoCodeBlocks($text);
-
-	$text = _DoBlockQuotes($text);
-
-	# We already ran _HashHTMLBlocks() before, in mkd2tex(), but that
-	# was to escape raw HTML in the original mkd2tex source. This time,
-	# we're escaping the markup we've just created, so that we don't wrap
-	# <p> tags around block-level tags.
-	$text = _HashHTMLBlocks($text);
-
-	$text = _FormParagraphs($text);
-
 	return $text;
 }
 
@@ -136,16 +124,6 @@ sub _RunSpanGamut {
 	$text = _DoCodeSpans($text);
 
 	$text = _EscapeSpecialChars($text);
-
-	# Process anchor and image tags. Images must come first,
-	# because ![foo][f] looks like an anchor.
-	$text = _DoImages($text);
-	$text = _DoAnchors($text);
-
-	# Make links out of things like `<http://example.com/>`
-	# Must come after _DoAnchors(), because you can use < and >
-	# delimiters in inline links like [this](<url>).
-	$text = _DoAutoLinks($text);
 
 	$text = _EncodeAmpsAndAngles($text);
 
