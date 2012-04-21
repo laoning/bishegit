@@ -96,154 +96,6 @@ sub mkd2tex {
 }
 
 
-sub _StripLinkDefinitions {
-#
-# Strips link definitions from text, stores the URLs and titles in
-# hash references.
-#
-	my $text = shift;
-	my $less_than_tab = $g_tab_width - 1;
-
-	# Link defs are in the form: ^[id]: url "optional title"
-	while ($text =~ s{
-						^[ ]{0,$less_than_tab}\[(.+)\]:	# id = $1
-						  [ \t]*
-						  \n?				# maybe *one* newline
-						  [ \t]*
-						<?(\S+?)>?			# url = $2
-						  [ \t]*
-						  \n?				# maybe one newline
-						  [ \t]*
-						(?:
-							(?<=\s)			# lookbehind for whitespace
-							["(]
-							(.+?)			# title = $3
-							[")]
-							[ \t]*
-						)?	# title is optional
-						(?:\n+|\Z)
-					}
-					{}mx) {
-		$g_urls{lc $1} = _EncodeAmpsAndAngles( $2 );	# Link IDs are case-insensitive
-		if ($3) {
-			$g_titles{lc $1} = $3;
-			$g_titles{lc $1} =~ s/"/&quot;/g;
-		}
-	}
-
-	return $text;
-}
-
-
-sub _HashHTMLBlocks {
-	my $text = shift;
-	my $less_than_tab = $g_tab_width - 1;
-
-	# Hashify HTML blocks:
-	# We only want to do this for block-level HTML tags, such as headers,
-	# lists, and tables. That's because we still want to wrap <p>s around
-	# "paragraphs" that are wrapped in non-block-level tags, such as anchors,
-	# phrase emphasis, and spans. The list of tags we're looking for is
-	# hard-coded:
-	my $block_tags_a = qr/p|div|h[1-6]|blockquote|pre|table|dl|ol|ul|script|noscript|form|fieldset|iframe|math|ins|del/;
-	my $block_tags_b = qr/p|div|h[1-6]|blockquote|pre|table|dl|ol|ul|script|noscript|form|fieldset|iframe|math/;
-
-	# First, look for nested blocks, e.g.:
-	# 	<div>
-	# 		<div>
-	# 		tags for inner block must be indented.
-	# 		</div>
-	# 	</div>
-	#
-	# The outermost tags must start at the left margin for this to match, and
-	# the inner nested divs must be indented.
-	# We need to do this before the next, more liberal match, because the next
-	# match will start at the first `<div>` and stop at the first `</div>`.
-	$text =~ s{
-				(						# save in $1
-					^					# start of line  (with /m)
-					<($block_tags_a)	# start tag = $2
-					\b					# word break
-					(.*\n)*?			# any number of lines, minimally matching
-					</\2>				# the matching end tag
-					[ \t]*				# trailing spaces/tabs
-					(?=\n+|\Z)	# followed by a newline or end of document
-				)
-			}{
-				my $key = md5_hex($1);
-				$g_html_blocks{$key} = $1;
-				"\n\n" . $key . "\n\n";
-			}egmx;
-
-
-	#
-	# Now match more liberally, simply from `\n<tag>` to `</tag>\n`
-	#
-	$text =~ s{
-				(						# save in $1
-					^					# start of line  (with /m)
-					<($block_tags_b)	# start tag = $2
-					\b					# word break
-					(.*\n)*?			# any number of lines, minimally matching
-					.*</\2>				# the matching end tag
-					[ \t]*				# trailing spaces/tabs
-					(?=\n+|\Z)	# followed by a newline or end of document
-				)
-			}{
-				my $key = md5_hex($1);
-				$g_html_blocks{$key} = $1;
-				"\n\n" . $key . "\n\n";
-			}egmx;
-	# Special case just for <hr />. It was easier to make a special case than
-	# to make the other regex more complicated.	
-	$text =~ s{
-				(?:
-					(?<=\n\n)		# Starting after a blank line
-					|				# or
-					\A\n?			# the beginning of the doc
-				)
-				(						# save in $1
-					[ ]{0,$less_than_tab}
-					<(hr)				# start tag = $2
-					\b					# word break
-					([^<>])*?			# 
-					/?>					# the matching end tag
-					[ \t]*
-					(?=\n{2,}|\Z)		# followed by a blank line or end of document
-				)
-			}{
-				my $key = md5_hex($1);
-				$g_html_blocks{$key} = $1;
-				"\n\n" . $key . "\n\n";
-			}egx;
-
-	# Special case for standalone HTML comments:
-	$text =~ s{
-				(?:
-					(?<=\n\n)		# Starting after a blank line
-					|				# or
-					\A\n?			# the beginning of the doc
-				)
-				(						# save in $1
-					[ ]{0,$less_than_tab}
-					(?s:
-						<!
-						(--.*?--\s*)+
-						>
-					)
-					[ \t]*
-					(?=\n{2,}|\Z)		# followed by a blank line or end of document
-				)
-			}{
-				my $key = md5_hex($1);
-				$g_html_blocks{$key} = $1;
-				"\n\n" . $key . "\n\n";
-			}egx;
-
-
-	return $text;
-}
-
 
 sub _RunBlockGamut {
 #
@@ -255,9 +107,6 @@ sub _RunBlockGamut {
 	$text = _DoHeaders($text);
 
 	# Do Horizontal Rules:
-	$text =~ s{^[ ]{0,2}([ ]?\*[ ]?){3,}[ \t]*$}{\n<hr$g_empty_element_suffix\n}gmx;
-	$text =~ s{^[ ]{0,2}([ ]? -[ ]?){3,}[ \t]*$}{\n<hr$g_empty_element_suffix\n}gmx;
-	$text =~ s{^[ ]{0,2}([ ]? _[ ]?){3,}[ \t]*$}{\n<hr$g_empty_element_suffix\n}gmx;
 
 	$text = _DoLists($text);
 
@@ -303,7 +152,6 @@ sub _RunSpanGamut {
 	$text = _DoItalicsAndBold($text);
 
 	# Do hard breaks:
-	$text =~ s/ {2,}\n/ <br$g_empty_element_suffix\n/g;
 
 	return $text;
 }
@@ -338,206 +186,7 @@ sub _EscapeSpecialChars {
 }
 
 
-sub _DoAnchors {
-#
-# Turn mkd2tex link shortcuts into XHTML <a> tags.
-#
-	my $text = shift;
 
-	#
-	# First, handle reference-style links: [link text] [id]
-	#
-	$text =~ s{
-		(					# wrap whole match in $1
-		  \[
-		    ($g_nested_brackets)	# link text = $2
-		  \]
-
-		  [ ]?				# one optional space
-		  (?:\n[ ]*)?		# one optional newline followed by spaces
-
-		  \[
-		    (.*?)		# id = $3
-		  \]
-		)
-	}{
-		my $result;
-		my $whole_match = $1;
-		my $link_text   = $2;
-		my $link_id     = lc $3;
-
-		if ($link_id eq "") {
-			$link_id = lc $link_text;     # for shortcut links like [this][].
-		}
-
-		if (defined $g_urls{$link_id}) {
-			my $url = $g_urls{$link_id};
-			$url =~ s! \* !$g_escape_table{'*'}!gx;		# We've got to encode these to avoid
-			$url =~ s!  _ !$g_escape_table{'_'}!gx;		# conflicting with italics/bold.
-			$result = "<a href=\"$url\"";
-			if ( defined $g_titles{$link_id} ) {
-				my $title = $g_titles{$link_id};
-				$title =~ s! \* !$g_escape_table{'*'}!gx;
-				$title =~ s!  _ !$g_escape_table{'_'}!gx;
-				$result .=  " title=\"$title\"";
-			}
-			$result .= ">$link_text</a>";
-		}
-		else {
-			$result = $whole_match;
-		}
-		$result;
-	}xsge;
-
-	#
-	# Next, inline-style links: [link text](url "optional title")
-	#
-	$text =~ s{
-		(				# wrap whole match in $1
-		  \[
-		    ($g_nested_brackets)	# link text = $2
-		  \]
-		  \(			# literal paren
-		  	[ \t]*
-			<?(.*?)>?	# href = $3
-		  	[ \t]*
-			(			# $4
-			  (['"])	# quote char = $5
-			  (.*?)		# Title = $6
-			  \5		# matching quote
-			)?			# title is optional
-		  \)
-		)
-	}{
-		my $result;
-		my $whole_match = $1;
-		my $link_text   = $2;
-		my $url	  		= $3;
-		my $title		= $6;
-
-		$url =~ s! \* !$g_escape_table{'*'}!gx;		# We've got to encode these to avoid
-		$url =~ s!  _ !$g_escape_table{'_'}!gx;		# conflicting with italics/bold.
-		$result = "<a href=\"$url\"";
-
-		if (defined $title) {
-			$title =~ s/"/&quot;/g;
-			$title =~ s! \* !$g_escape_table{'*'}!gx;
-			$title =~ s!  _ !$g_escape_table{'_'}!gx;
-			$result .=  " title=\"$title\"";
-		}
-
-		$result .= ">$link_text</a>";
-
-		$result;
-	}xsge;
-
-	return $text;
-}
-
-
-sub _DoImages {
-#
-# Turn mkd2tex image shortcuts into <img> tags.
-#
-	my $text = shift;
-
-	#
-	# First, handle reference-style labeled images: ![alt text][id]
-	#
-	$text =~ s{
-		(				# wrap whole match in $1
-		  !\[
-		    (.*?)		# alt text = $2
-		  \]
-
-		  [ ]?				# one optional space
-		  (?:\n[ ]*)?		# one optional newline followed by spaces
-
-		  \[
-		    (.*?)		# id = $3
-		  \]
-
-		)
-	}{
-		my $result;
-		my $whole_match = $1;
-		my $alt_text    = $2;
-		my $link_id     = lc $3;
-
-		if ($link_id eq "") {
-			$link_id = lc $alt_text;     # for shortcut links like ![this][].
-		}
-
-		$alt_text =~ s/"/&quot;/g;
-		if (defined $g_urls{$link_id}) {
-			my $url = $g_urls{$link_id};
-			$url =~ s! \* !$g_escape_table{'*'}!gx;		# We've got to encode these to avoid
-			$url =~ s!  _ !$g_escape_table{'_'}!gx;		# conflicting with italics/bold.
-			$result = "<img src=\"$url\" alt=\"$alt_text\"";
-			if (defined $g_titles{$link_id}) {
-				my $title = $g_titles{$link_id};
-				$title =~ s! \* !$g_escape_table{'*'}!gx;
-				$title =~ s!  _ !$g_escape_table{'_'}!gx;
-				$result .=  " title=\"$title\"";
-			}
-			$result .= $g_empty_element_suffix;
-		}
-		else {
-			# If there's no such link ID, leave intact:
-			$result = $whole_match;
-		}
-
-		$result;
-	}xsge;
-
-	#
-	# Next, handle inline images:  ![alt text](url "optional title")
-	# Don't forget: encode * and _
-
-	$text =~ s{
-		(				# wrap whole match in $1
-		  !\[
-		    (.*?)		# alt text = $2
-		  \]
-		  \(			# literal paren
-		  	[ \t]*
-			<?(\S+?)>?	# src url = $3
-		  	[ \t]*
-			(			# $4
-			  (['"])	# quote char = $5
-			  (.*?)		# title = $6
-			  \5		# matching quote
-			  [ \t]*
-			)?			# title is optional
-		  \)
-		)
-	}{
-		my $result;
-		my $whole_match = $1;
-		my $alt_text    = $2;
-		my $url	  		= $3;
-		my $title		= '';
-		if (defined($6)) {
-			$title		= $6;
-		}
-
-		$alt_text =~ s/"/&quot;/g;
-		$title    =~ s/"/&quot;/g;
-		$url =~ s! \* !$g_escape_table{'*'}!gx;		# We've got to encode these to avoid
-		$url =~ s!  _ !$g_escape_table{'_'}!gx;		# conflicting with italics/bold.
-		$result = "<img src=\"$url\" alt=\"$alt_text\"";
-		if (defined $title) {
-			$title =~ s! \* !$g_escape_table{'*'}!gx;
-			$title =~ s!  _ !$g_escape_table{'_'}!gx;
-			$result .=  " title=\"$title\"";
-		}
-		$result .= $g_empty_element_suffix;
-
-		$result;
-	}xsge;
-
-	return $text;
-}
 
 
 sub _DoHeaders {
@@ -634,37 +283,6 @@ sub _DoLists {
 	# afoul of the reaper. Thus, the slightly redundant code to that uses two
 	# static s/// patterns rather than one conditional pattern.
 
-	if ($g_list_level) {
-		$text =~ s{
-				^
-				$whole_list
-			}{
-				my $list = $1;
-				my $list_type = ($3 =~ m/$marker_ul/) ? "ul" : "ol";
-				# Turn double returns into triple returns, so that we can make a
-				# paragraph for the last item in a list, if necessary:
-				$list =~ s/\n{2,}/\n\n\n/g;
-				my $result = _ProcessListItems($list, $marker_any);
-				$result = "<$list_type>\n" . $result . "</$list_type>\n";
-				$result;
-			}egmx;
-	}
-	else {
-		$text =~ s{
-				(?:(?<=\n\n)|\A\n?)
-				$whole_list
-			}{
-				my $list = $1;
-				my $list_type = ($3 =~ m/$marker_ul/) ? "ul" : "ol";
-				# Turn double returns into triple returns, so that we can make a
-				# paragraph for the last item in a list, if necessary:
-				$list =~ s/\n{2,}/\n\n\n/g;
-				my $result = _ProcessListItems($list, $marker_any);
-				$result = "<$list_type>\n" . $result . "</$list_type>\n";
-				$result;
-			}egmx;
-	}
-
 
 	return $text;
 }
@@ -701,7 +319,6 @@ sub _ProcessListItems {
 	# change the syntax rules such that sub-lists must start with a
 	# starting cardinal number; e.g. "1." or "a.".
 
-	$g_list_level++;
 
 	# trim trailing blank lines:
 	$list_str =~ s/\n{2,}\z/\n/;
@@ -732,7 +349,6 @@ sub _ProcessListItems {
 		"<li>" . $item . "</li>\n";
 	}egmx;
 
-	$g_list_level--;
 	return $list_str;
 }
 
@@ -907,41 +523,6 @@ sub _DoBlockQuotes {
 }
 
 
-sub _FormParagraphs {
-#
-#	Params:
-#		$text - string to process with html <p> tags
-#
-	my $text = shift;
-
-	# Strip leading and trailing lines:
-	$text =~ s/\A\n+//;
-	$text =~ s/\n+\z//;
-
-	my @grafs = split(/\n{2,}/, $text);
-
-	#
-	# Wrap <p> tags.
-	#
-	foreach (@grafs) {
-		unless (defined( $g_html_blocks{$_} )) {
-			$_ = _RunSpanGamut($_);
-			s/^([ \t]*)/<p>/;
-			$_ .= "</p>";
-		}
-	}
-
-	#
-	# Unhashify HTML blocks
-	#
-	foreach (@grafs) {
-		if (defined( $g_html_blocks{$_} )) {
-			$_ = $g_html_blocks{$_};
-		}
-	}
-
-	return join "\n\n", @grafs;
-}
 
 
 sub _EncodeAmpsAndAngles {
