@@ -162,7 +162,7 @@ sub _DoHeaders {
 	#	  --------
 	#
 	$text =~ s{ ^(.+)[ \t]*\n=+[ \t]*\n+ }{
-		"  设计题目: "  .  ($1)  .  "\n";
+		"-\n  设计题目: "  .  ($1)  .  "\n";
 	}egmx;
 
 	$text =~ s{ ^(.+)[ \t]*\n-+[ \t]*\n+ }{
@@ -187,7 +187,7 @@ sub _DoHeaders {
 		}{
 			my $h_level = length($1);
             if ($h_level == 1) {
-                "  设计题目: "  .  ($2)  .  "\n";
+                "-\n  设计题目: "  .  ($2)  .  "\n";
             }
             else {
                 "<h$h_level>"  .  ($2)  .  "</h$h_level>\n\n";
