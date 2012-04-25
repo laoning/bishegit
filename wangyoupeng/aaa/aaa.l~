@@ -4,7 +4,6 @@
 %}
 
 numeral     -?(([0-9]+)|([0-9]*\.[0-9]+)([eE][-+]?[0-9]+)?)
-some_name   [^ \t\r\n\f]+
 eol         \n
 blankline   ^[ \t\r]*\n 
 cr          \r
