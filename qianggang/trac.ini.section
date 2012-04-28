@@ -1,3 +1,9 @@
+[account-manager]
+password_file = /srv/.passwd
+password_format = htpasswd
+password_store = HtPasswdStore
+user_lock_max_time = 0
+
 [components]
 acct_mgr.admin.accountmanageradminpage = enabled
 acct_mgr.admin.accountmanageradminpages = enabled
