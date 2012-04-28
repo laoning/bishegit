@@ -1,0 +1,20 @@
+[components]
+acct_mgr.admin.accountmanageradminpage = enabled
+acct_mgr.admin.accountmanageradminpages = enabled
+acct_mgr.api.accountmanager = enabled
+acct_mgr.db.sessionstore = enabled
+acct_mgr.htfile.abstractpasswordfilestore = enabled
+acct_mgr.htfile.htdigeststore = enabled
+acct_mgr.htfile.htpasswdstore = enabled
+acct_mgr.http.httpauthstore = enabled
+acct_mgr.notification.accountchangelistener = enabled
+acct_mgr.notification.accountchangenotificationadminpanel = enabled
+acct_mgr.pwhash.htdigesthashmethod = enabled
+acct_mgr.pwhash.htpasswdhashmethod = enabled
+acct_mgr.svnserve.svnservepasswordstore = enabled
+acct_mgr.web_ui.accountmodule = enabled
+acct_mgr.web_ui.emailverificationmodule = enabled
+acct_mgr.web_ui.loginmodule = enabled
+acct_mgr.web_ui.registrationmodule = enabled
+acct_mgr.web_ui.resetpwstore = enabled
+trac.web.auth.loginmodule = disabled
