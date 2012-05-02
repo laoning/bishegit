@@ -1,16 +1,18 @@
 #!/bin/sh
 cd /home/laoning/laoning
 echo hello >> /home/laoning/laoning/file-tmp1
-echo `date` >> /home/laoning/laoning/file-tmp1
+echo `date` >> /home/laoning/laoning/file-tmp1 //测试脚本文件是否定时执行
 
 #git pull
 
 if make
   then
-     echo `date` >>consequence
-     echo  program is right! >>consequence
+     echo `date` >>consequence.txt  //输出日期
+     echo  program is right! >>consequence.txt  //输出程序运行结果
+     echo  "result"|mutt -a /home/laoning/laoning/consequence.txt ningtaiye@yeah.net 
 else
-     echo `date` >>consequence
-     echo  there is an error! >>consequence
+     echo `date` >>consequence.txt
+     echo  there is an error! >>consequence.txt
+     echo  "result"|mutt -a /home/laoning/laoning/consequence.txt ningtaiye@yeah.net//发送邮件
 fi
 

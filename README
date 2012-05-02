@@ -9,3 +9,33 @@ file-tmp1：实验shell2是否定时执行
 #“*/？”表示每？分钟执行一次
 # 分钟 小时 日期 月份 周 命令
 
+邮件的发送：使用mutt工具，配置.msmtprc
+
+MUTT
+系统全局设置/etc/Muttrc,如果使用某个系统用户，可以在~/.muttrc中设置。
+
+vi .muttrc
+set sendmail="/usr/bin/msmtp"
+set use_from=yes
+set realname="lining"
+set from=fyb@163.com
+set envelope_from=yes
+
+
+MSMTP
+创建~/.msmtprc和~/.msmtp.log,分别为配置和日志文件。
+vi .msmtprc
+
+account default
+host smtp.163.com
+from fyb@163.com
+auth plain
+user fyb
+password 123456
+logfile ~/.msmtp.log
+
+#由于password是明码，所以我们需要修改此文件的权限。
+chmod 600 .msmtprc
+发送附件的命令：echo "test" |mutt -a dbms_stats.txt -s my_first_test fyb@gmail.com
+echo -e "文字描述,可以带参数$allname" | mutt -a "附件(写好路径)" -a "附件2(写好路径)"   aa@163.com
+

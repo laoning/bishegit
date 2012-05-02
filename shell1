@@ -4,12 +4,12 @@
 ls -a > /home/laoning/laoning/file
  
 echo hello >> /home/laoning/laoning/file-tmp
-echo `date` >> /home/laoning/laoning/file-tmp
+echo `date` >> /home/laoning/laoning/file-tmp //测试脚本是否定时执行
 
 cd /home/laoning/laoning 
 git init 
 git add -A
 git commit -m "my experiment" 
-git push 
+git push //上传至git仓库中
 
 
