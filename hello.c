@@ -1,8 +1,4 @@
-
-﻿#include <stdio.h>
- main()
-{
-        printf("Hello, World!\n");
-        printf("Hello, our team members!\n");
-        
+#include <stdio.h>
+main()
+{printf("hello,world!\n");
 }
