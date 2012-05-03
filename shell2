@@ -9,10 +9,12 @@ if make
   then
      echo `date` >>consequence.txt  //输出日期
      echo  program is right! >>consequence.txt  //输出程序运行结果
-     echo  "result"|mutt -a /home/laoning/laoning/consequence.txt ningtaiye@yeah.net 
+     mutt -s "TITLE: Compile Result" 835742268@qq.com -a /home/laoning/laoning/consequence.txt
+     #mutt -s "TITLE: Compile Result" 779371162@qq.com -a /home/laoning/laoning/consequence.txt 
 else
      echo `date` >>consequence.txt
      echo  there is an error! >>consequence.txt
-     echo  "result"|mutt -a /home/laoning/laoning/consequence.txt ningtaiye@yeah.net//发送邮件
+     mutt -s "TITLE: Compile Result" 835742268@qq.com -a /home/laoning/laoning/consequence.txt
+     #mutt -s "TITLE: Compile Result" 779371162@qq.com -a /home/laoning/laoning/consequence.txt 
 fi
 
