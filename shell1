@@ -3,10 +3,10 @@
 
 
  
-echo hello >> /home/laoning/laoning/file-tmp
-echo `date` >> /home/laoning/laoning/file-tmp //测试脚本是否定时执行
+echo hello >> /home/laoning/client-host/file-tmp
+echo `date` >> /home/laoning/client-host/file-tmp //测试脚本是否定时执行
 
-cd /home/laoning/laoning 
+cd /home/laoning/client-host 
 git init 
 git add -A
 git commit -m "my experiment" 
