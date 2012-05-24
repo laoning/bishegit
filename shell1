@@ -1,7 +1,7 @@
 #!/bin/sh
 
 
-ls -a > /home/laoning/laoning/file
+
  
 echo hello >> /home/laoning/laoning/file-tmp
 echo `date` >> /home/laoning/laoning/file-tmp //测试脚本是否定时执行
